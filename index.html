@@ -437,8 +437,11 @@ a { color: var(--accent); }
   transition: border-color 0.22s;
 }
 .proj-card:hover { border-color: var(--border); }
-.proj-shots { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); height: 260px; }
-.proj-shot { overflow: hidden; background: #121211; display: grid; place-items: center; }
+.proj-shots { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); }
+/* Each half-slot carries the sources' own 16:9, so the pair shows complete
+   instead of being centre-cropped, and it stays exact as the card resizes.
+   (A fixed-height band made each slot taller than wide and cut ~48% away.) */
+.proj-shot { aspect-ratio: 16 / 9; overflow: hidden; background: #121211; display: grid; place-items: center; }
 .proj-shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .proj-slot { display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--muted); }
 .proj-slot svg { width: 20px; height: 20px; }
