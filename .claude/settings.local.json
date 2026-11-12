@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell($g = Get-Content \"C:\\\\Jude Rosario Portfolio Website\\\\generic_sport_coupe_car\\\\scene.gltf\" -Raw | ConvertFrom-Json; \"HAS SKINS: $\\($null -ne $g.skins\\) count=$\\($g.skins.Count\\)\"; \"ANIMATIONS: $\\($g.animations.Count\\)\"; $n = $g.nodes; \"Sample mesh nodes with transforms:\"; $n | Where-Object { $null -ne $_.mesh } | Select-Object -First 6 | ForEach-Object { \"name=$\\($_.name\\) skin=$\\($_.skin\\) hasMatrix=$\\($null -ne $_.matrix\\) hasTRS=$\\($null -ne $_.translation -or $null -ne $_.rotation -or $null -ne $_.scale\\)\" }; \"Nodes with skin: $\\(\\($n | Where-Object { $null -ne $_.skin }\\).Count\\)\")",
+      "Read(//c/Users/judea/AppData/Local/Temp/claude/C--Jude-Rosario-Portfolio-Website/e98d2784-0291-40ee-b90e-d0a761cbf008/scratchpad/**)",
+      "Bash(python save_shot.py shot1.jpg)",
+      "Bash(base64 -d shot1.b64)",
+      "Bash(cd \"/c/Users/judea/AppData/Local/Temp/claude/C--Jude-Rosario-Portfolio-Website/e98d2784-0291-40ee-b90e-d0a761cbf008/scratchpad\" && tr -d '\\\\r\\\\n' < shot1.b64 | base64 -d > shot1.jpg && ls -la shot1.jpg)",
+      "PowerShell($b64 = \\(Get-Content \"$env:LOCALAPPDATA\\\\Temp\\\\claude\\\\C--Jude-Rosario-Portfolio-Website\\\\e98d2784-0291-40ee-b90e-d0a761cbf008\\\\scratchpad\\\\shot1.b64\" -Raw\\).Trim\\(\\); [IO.File]::WriteAllBytes\\(\"$env:LOCALAPPDATA\\\\Temp\\\\claude\\\\C--Jude-Rosario-Portfolio-Website\\\\e98d2784-0291-40ee-b90e-d0a761cbf008\\\\scratchpad\\\\shot1.jpg\", [Convert]::FromBase64String\\($b64\\)\\); \\(Get-Item \"$env:LOCALAPPDATA\\\\Temp\\\\claude\\\\C--Jude-Rosario-Portfolio-Website\\\\e98d2784-0291-40ee-b90e-d0a761cbf008\\\\scratchpad\\\\shot1.jpg\"\\).Length)",
+      "PowerShell($raw = \\(Get-Content \"$env:LOCALAPPDATA\\\\Temp\\\\claude\\\\C--Jude-Rosario-Portfolio-Website\\\\e98d2784-0291-40ee-b90e-d0a761cbf008\\\\scratchpad\\\\shot1.b64\" -Raw\\); $t = $raw -replace '\\\\s',''; \"len=$\\($t.Length\\) mod4=$\\($t.Length % 4\\)\")",
+      "PowerShell(node \"$env:LOCALAPPDATA\\\\Temp\\\\claude\\\\C--Jude-Rosario-Portfolio-Website\\\\e98d2784-0291-40ee-b90e-d0a761cbf008\\\\scratchpad\\\\snapserver.js\")",
+      "PowerShell($c = Get-NetTCPConnection -LocalPort 4599 -State Listen -ErrorAction SilentlyContinue; if \\($c\\) { Stop-Process -Id $c[0].OwningProcess -Force -Confirm:$false; 'stopped' } else { 'not running' })",
+      "Bash(cat \"/c/Users/judea/.claude/projects/C--Jude-Rosario-Portfolio-Website/memory/MEMORY.md\" 2>/dev/null || echo \"MISSING\")",
+      "PowerShell($c = Get-NetTCPConnection -LocalPort 4173 -State Listen -ErrorAction SilentlyContinue; if \\($c\\) { $p = Get-Process -Id $c[0].OwningProcess -ErrorAction SilentlyContinue; [PSCustomObject]@{PID=$c[0].OwningProcess; Name=$p.Name; Path=$p.Path; CmdLine=\\(Get-CimInstance Win32_Process -Filter \"ProcessId=$\\($c[0].OwningProcess\\)\"\\).CommandLine} | Format-List } else { 'port 4173 free' })",
+      "PowerShell($c = Get-NetTCPConnection -LocalPort 4599 -State Listen -ErrorAction SilentlyContinue; if \\($c\\) { 'already running' } else { Start-Process node -ArgumentList \"`\"$env:LOCALAPPDATA\\\\Temp\\\\claude\\\\C--Jude-Rosario-Portfolio-Website\\\\e98d2784-0291-40ee-b90e-d0a761cbf008\\\\scratchpad\\\\snapserver.js`\"\" -WindowStyle Hidden; Start-Sleep -Milliseconds 700; 'started' })",
+      "PowerShell(Get-ChildItem \"C:\\\\Jude Rosario Portfolio Website\" -File | Where-Object { $_.Extension -match '\\\\.\\(png|jpg|jpeg|webp|avif|svg\\)$' } | Select-Object Name, Length, LastWriteTime | Format-Table -AutoSize)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\judea\\\\Downloads\",\"C:\\\\Users\\\\judea\\\\Desktop\",\"C:\\\\Users\\\\judea\\\\Pictures\" -File -ErrorAction SilentlyContinue | Where-Object { $_.Extension -match '\\\\.\\(png|jpg|jpeg|webp\\)$' -and $_.LastWriteTime -gt \\(Get-Date\\).AddDays\\(-3\\) } | Sort-Object LastWriteTime -Descending | Select-Object FullName, Length, LastWriteTime | Format-Table -AutoSize)",
+      "PowerShell($c = Get-NetTCPConnection -LocalPort 4599 -State Listen -ErrorAction SilentlyContinue; if \\($c\\) { Stop-Process -Id $c[0].OwningProcess -Force -Confirm:$false; 'snapserver stopped' } else { 'not running' })"
+    ]
+  }
+}

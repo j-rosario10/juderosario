@@ -1,0 +1,7 @@
+# The site only needs index.html + car.glb + the images.
+# These two folders are the raw/original model sources (~106 MB) and are not
+# fetched by the deployed site — car.glb is the compressed model it actually loads.
+v8_engine/
+generic_sport_coupe_car/
+
+.claude/

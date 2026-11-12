@@ -1,0 +1,6 @@
+.vercel
+.env*
+
+# raw model sources (~106 MB, not used by the site)
+v8_engine/
+generic_sport_coupe_car/
