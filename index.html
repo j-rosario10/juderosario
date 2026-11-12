@@ -45,7 +45,14 @@ const CONTENT = {
   /* Six photos for the About Me radio, in station order. Drop the files in
      public/images/about/ and put their paths here; any empty entry shows a
      striped "PHOTO 0n" placeholder instead. */
-  aboutPhotos: ["", "", "", "", "", ""],
+  aboutPhotos: [
+    "public/images/about/about-1.webp",
+    "public/images/about/about-2.webp",
+    "public/images/about/about-3.webp",
+    "public/images/about/about-4.webp",
+    "public/images/about/about-5.webp",
+    "public/images/about/about-6.webp"
+  ],
 
   aboutMe: "Hi, I'm Jude, a Mechatronics Engineering student at the University of Waterloo. I enjoy designing and simulating drones, robots and cars. Outside of school, I like to keep myself busy with learning how to cook, going to the gym, video games and racing fast cars!",
 
@@ -2311,7 +2318,10 @@ for (const [id, url] of [
 document.querySelector('meta[property="og:title"]').setAttribute('content', document.title);
 
 /* Hidden semantic mirror of CONTENT for screen readers and search engines.
-   Reuses the panel builders, so it always matches what the panels show. */
+   Reuses the panel builders so it always matches what the panels show —
+   except About, which is deliberately flattened to text: running its builder
+   here would clone the whole radio (duplicate buttons for screen readers, and
+   a stray document keydown listener registered at page load). */
 {
   const mirror = el('main', 'sr-only');
   mirror.appendChild(el('h1', null, CONTENT.name));
@@ -2319,7 +2329,7 @@ document.querySelector('meta[property="og:title"]').setAttribute('content', docu
   for (const sid of SECTION_ORDER) {
     const sec = document.createElement('section');
     sec.appendChild(el('h2', null, SECTIONS[sid].title));
-    sec.appendChild(builders[sid]());
+    sec.appendChild(sid === 'about' ? el('p', null, CONTENT.aboutMe) : builders[sid]());
     mirror.appendChild(sec);
   }
   document.body.appendChild(mirror);
