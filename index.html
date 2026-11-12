@@ -16,6 +16,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" />
+<!-- Panel UI type: Archivo everywhere, IBM Plex Mono for dates/numbers/tiny labels. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%231a5c3a'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%2308090a'/%3E%3C/svg%3E" />
 
 <!-- ============================================================
@@ -40,6 +42,18 @@ const CONTENT = {
     opacity: 0.5,                // 0 = invisible, 1 = full strength
   },
 
+  /* Six photos for the About Me radio, in station order. Drop the files in
+     public/images/about/ and put their paths here; any empty entry shows a
+     striped "PHOTO 0n" placeholder instead. */
+  aboutPhotos: [
+    "public/images/about/about-1.webp",
+    "public/images/about/about-2.webp",
+    "public/images/about/about-3.webp",
+    "public/images/about/about-4.webp",
+    "public/images/about/about-5.webp",
+    "public/images/about/about-6.webp"
+  ],
+
   aboutMe: "Hi, I'm Jude, a Mechatronics Engineering student at the University of Waterloo. I enjoy designing and simulating drones, robots and cars. Outside of school, I like to keep myself busy with learning how to cook, going to the gym, video games and racing fast cars!",
 
   /* Newest first. `logo` is optional — leave it out and the entry just has no
@@ -50,28 +64,28 @@ const CONTENT = {
       org: "Musashi Auto Parts",
       dates: "May – Aug 2026",
       logo: "logos/musashi.jpg",
-      bullets: ["Link and suspension design 🚗"]
+      bullets: ["Link and suspension design"]
     },
     {
       title: "Chassis and Internal Structures Engineer",
       org: "UW Formula Electric",
       dates: "Sept 2024 – Aug 2026",
       logo: "logos/uwfe.jpg",
-      bullets: ["Chassis design 🏎️"]
+      bullets: ["Chassis design"]
     },
     {
       title: "Mechanical Engineering Intern",
       org: "Conifer Homewares",
       dates: "Sept – Dec 2025",
       logo: "logos/conifer.jpg",
-      bullets: ["3D printing and automation 🛠️"]
+      bullets: ["3D printing and automation"]
     },
     {
       title: "Operations Engineering Intern",
       org: "Amrize",
       dates: "Jan – Apr 2025",
       logo: "logos/amrize.jpg",
-      bullets: ["Data operations analysis 💻📊"]
+      bullets: ["Data operations analysis"]
     }
   ],
 
@@ -84,6 +98,7 @@ const CONTENT = {
       date: "Dec 2025",
       description: "A 3D-printed BMW M2 chassis designed in SolidWorks and validated with FEA, driven by an ESP32 running dual-motor torque vectoring and regenerative braking. A Wi-Fi dashboard streams live telemetry, and an ultrasonic sensor overrides throttle to avoid collisions.",
       link: "https://github.com/j-rosario10/ESP32-RC-Car-Project",
+      tools: ["SolidWorks", "FEA", "ESP32", "3D Printing"],
       images: ["shots/p1-m2-chassis-upright.jpg", "shots/p1-dashboard.jpg"],
       alts: ["3D-printed BMW M2-style RC car chassis with blue electronics lighting",
              "Wi-Fi driving dashboard showing a live camera feed, speed gauge, and gas and brake controls"]
@@ -93,6 +108,7 @@ const CONTENT = {
       date: "May 2026",
       description: "A simulated UR5e I pilot with my own arm through a webcam. MediaPipe streams a wrist vector and pinch value to a ROS 2 node that retargets it and solves IK in PyBullet, with DH kinematics, damped least-squares IK and self-collision written from scratch. Recorded episodes train a bin-sorting policy.",
       link: "https://github.com/j-rosario10/Robot-Arm-Simulation",
+      tools: ["MediaPipe", "ROS 2", "PyBullet", "IK"],
       images: ["shots/p2-grasp.jpg", "shots/p2-tracking.jpg"],
       alts: ["Simulated UR5e gripper placing a red object into a bin",
              "Webcam view with MediaPipe shoulder, elbow and wrist tracking and a pinch readout"]
@@ -102,6 +118,7 @@ const CONTENT = {
       date: "Oct 2024",
       description: "A multi-component quadcopter assembly modelled in SolidWorks, then run through Flow Simulation with rotating propeller regions to measure airflow, pressure and thrust. The first design fell short on lift, so I iterated on propeller geometry and RPM until it cleared the airframe weight.",
       link: "https://github.com/j-rosario10/Drone-Assembly-CFD",
+      tools: ["SolidWorks", "Flow Simulation", "CFD"],
       images: ["shots/p3-drone-render.jpg", "shots/p3-cfd.jpg"],
       alts: ["SolidWorks render of the quadcopter assembly",
              "Flow Simulation trajectories coloured by pressure around the spinning propellers"]
@@ -111,6 +128,7 @@ const CONTENT = {
       date: "Nov 2024",
       description: "A mobile robot in RobotC that reads waypoint coordinates from a file and drives itself between them, using gyro and ultrasonic feedback to correct heading. A colour sensor classifies each object and routes it to the matching drop-off bin.",
       link: "https://github.com/j-rosario10/Autonomous-Colour-Sorting-Robot",
+      tools: ["RobotC", "Gyro", "Ultrasonic", "Colour Sensor"],
       images: ["shots/p4-robot.jpg", "shots/p4-sorting.jpg"],
       alts: ["The assembled colour sorting robot with its gripper arm",
              "The robot driving between cardboard drop-off bins"]
@@ -180,22 +198,32 @@ const FALLBACK_MODEL_URL = "generic_sport_coupe_car/scene.gltf";
 
 <style>
 :root {
-  --bg: #08090a;
-  --panel: #131619;
-  --panel-2: #171b1e;
-  --line: #2d3336;
-  --line-soft: #22282b;
-  --text: #d8dcda;
-  --dim: #8d9793;
-  --accent: #3aa76d;       /* Isle of Man Green — UI-legible tint */
-  --accent-deep: #1a5c3a;  /* Isle of Man Green — deep */
-  --mono: ui-monospace, "Cascadia Code", "SF Mono", Consolas, "Liberation Mono", monospace;
-  --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --page-dark: #08090a;    /* matches the 3D scene, avoids a load flash */
+  --bg: #1A1A18;           /* panel background */
+  --panel: var(--bg);
+  --panel-2: var(--bg);
+  --line: #34332F;         /* dividers, timeline */
+  --line-soft: var(--line);
+  --text: #F2F0EA;
+  --dim: var(--muted);
+  --accent: #FF7A1A;       /* orange */
+  --accent-deep: #C85A0C;
+  --mono: var(--font-data);
+  --sans: var(--font-main);
+
+  /* panel theme */
+  --page: #0E0E0D;      /* behind panels */
+  --card: #1E1E1B;      /* cards inside panels */
+  --border: #3A3934;    /* panel and card borders */
+  --text-2: #D6D3CB;    /* body text */
+  --muted: #A8A59C;     /* secondary text */
+  --font-main: 'Archivo', system-ui, sans-serif;
+  --font-data: 'IBM Plex Mono', ui-monospace, monospace;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body { height: 100%; overflow: hidden; overscroll-behavior: none; }
 body {
-  background: var(--bg);
+  background: var(--page-dark);
   color: var(--text);
   font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
@@ -300,340 +328,282 @@ a { color: var(--accent); }
 /* ---------- backdrop + panel ---------- */
 #backdrop {
   position: fixed; inset: 0; z-index: 8;
-  background: rgba(4, 5, 6, 0.4);
-  backdrop-filter: blur(7px) brightness(0.6);
-  -webkit-backdrop-filter: blur(7px) brightness(0.6);
+  background: rgba(6, 6, 5, 0.52);
+  backdrop-filter: blur(7px) brightness(0.55);
+  -webkit-backdrop-filter: blur(7px) brightness(0.55);
   opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
 }
 #backdrop.open { opacity: 1; pointer-events: auto; }
 
 #panel {
   position: fixed; left: 50%; top: 50%; z-index: 9;
-  transform: translate(-50%, calc(-50% + 26px)); opacity: 0; pointer-events: none;
+  width: min(1100px, 92vw); max-height: calc(100vh - 72px);
+  transform: translate(-50%, calc(-50% + 20px)); opacity: 0; pointer-events: none;
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.3, 1), opacity 0.35s ease;
-  background:
-    radial-gradient(circle at 1px 1px, rgba(160, 205, 180, 0.05) 1px, transparent 0) 0 0 / 26px 26px,
-    linear-gradient(180deg, var(--panel-2), var(--panel));
-  border: 1px solid var(--line); border-radius: 10px;
-  box-shadow:
-    0 30px 80px rgba(0, 0, 0, 0.6),
-    0 0 60px rgba(46, 158, 99, 0.05),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04),
-    inset 0 0 0 1px rgba(46, 158, 99, 0.04);
-  display: flex; flex-direction: column; overflow: hidden;
+  display: flex;
 }
-#panel.open {
-  transform: translate(-50%, -50%); opacity: 1; pointer-events: auto;
-  box-shadow:
-    0 30px 90px rgba(0, 0, 0, 0.62),
-    0 0 90px rgba(46, 158, 99, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05),
-    inset 0 0 0 1px rgba(46, 158, 99, 0.06);
-}
-#panel.size-large { width: min(1180px, 88vw); height: min(86vh, 860px); }
-#panel.size-small { width: min(620px, 92vw); max-height: 78vh; }
+#panel.open { transform: translate(-50%, -50%); opacity: 1; pointer-events: auto; }
 
-/* corner registration marks (technical-drawing viewfinder) */
-.panel-frame { position: absolute; inset: 11px; z-index: 4; pointer-events: none; }
-.panel-frame i {
-  position: absolute; width: 15px; height: 15px;
-  border: 1px solid rgba(46, 158, 99, 0.45);
-  opacity: 0; transition: opacity 0.5s ease 0.2s;
+/* One 45° chamfer on the top-left. The 1px border is two stacked clipped
+   layers: the outer paints the border colour, the inner the panel fill. */
+.panel-edge {
+  flex: 1; min-height: 0; display: flex; padding: 1px;
+  background: var(--border);
+  clip-path: polygon(28px 0, 100% 0, 100% 100%, 0 100%, 0 28px);
 }
-#panel.open .panel-frame i { opacity: 1; }
-.panel-frame i:nth-child(1) { top: 0; left: 0; border-right: 0; border-bottom: 0; }
-.panel-frame i:nth-child(2) { top: 0; right: 0; border-left: 0; border-bottom: 0; }
-.panel-frame i:nth-child(3) { bottom: 0; left: 0; border-right: 0; border-top: 0; }
-.panel-frame i:nth-child(4) { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+.panel-inner {
+  flex: 1; min-height: 0; display: flex; flex-direction: column;
+  background: var(--bg);
+  clip-path: polygon(27.6px 0, 100% 0, 100% 100%, 0 100%, 0 27.6px);
+  padding: 44px 52px 48px;
+}
 
-/* giant ghosted section number behind the header */
-.panel-wm {
-  position: absolute; top: -18px; right: 18px; z-index: 0; pointer-events: none;
-  font-family: var(--mono); font-weight: 700; font-size: 190px; line-height: 1;
-  letter-spacing: -0.05em; color: rgba(210, 235, 220, 0.028);
-  opacity: 0; transform: translateY(8px);
-  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.3, 1);
-}
-#panel.open .panel-wm { opacity: 1; transform: none; }
-
-.panel-head {
-  position: relative; z-index: 2; flex: none;
-  padding: 24px 30px 16px; border-bottom: 1px solid var(--line-soft);
-}
-.panel-head-row { display: flex; align-items: flex-start; justify-content: space-between; }
-.panel-eyebrow {
-  font-family: var(--mono); font-size: 10px; letter-spacing: 0.32em;
-  text-transform: uppercase; color: var(--accent);
+.panel-head { flex: none; display: flex; align-items: center; gap: 18px; }
+.panel-num {
+  flex: none; width: 44px; height: 44px; border-radius: 50%;
+  border: 1.5px solid var(--accent); display: grid; place-items: center;
+  font-family: var(--font-data); font-size: 14px; font-weight: 600;
+  color: var(--accent); line-height: 1;
 }
 .panel-title {
-  margin-top: 8px; font-family: var(--mono); font-weight: 600;
-  font-size: clamp(19px, 2.6vw, 26px); letter-spacing: 0.14em; text-transform: uppercase;
+  font-family: var(--font-main); font-size: 46px; font-weight: 700; font-style: italic;
+  font-stretch: 115%; letter-spacing: -0.01em; line-height: 1.05; color: var(--text);
 }
-/* accent underline that draws in on open */
-.panel-underline {
-  height: 2px; width: 0; margin-top: 13px; border-radius: 2px;
-  background: linear-gradient(to right, var(--accent), rgba(46, 158, 99, 0));
-}
-#panel.open .panel-underline {
-  width: 68px; transition: width 0.6s cubic-bezier(0.22, 1, 0.3, 1) 0.15s;
-  box-shadow: 0 0 12px rgba(46, 158, 99, 0.5);
-}
-/* titleblock metadata strip */
-.panel-titleblock {
-  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-  margin-top: 15px; padding-top: 12px; border-top: 1px solid var(--line-soft);
-  font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.2em;
-  text-transform: uppercase; color: var(--dim);
-}
-.panel-titleblock .tb-live { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); }
-.panel-titleblock .tb-dot {
-  width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
-  box-shadow: 0 0 8px rgba(46, 158, 99, 0.8);
-  animation: tb-pulse 2.4s ease-in-out infinite;
-}
-@keyframes tb-pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
 #panel-close {
-  flex: none; width: 38px; height: 38px; margin: -6px -8px 0 16px;
-  display: grid; place-items: center;
-  border: 1px solid var(--line); border-radius: 6px; color: var(--dim);
-  font-size: 17px; line-height: 1;
+  margin-left: auto; flex: none; width: 44px; height: 44px;
+  border: 1px solid var(--border); background: transparent;
+  display: grid; place-items: center; color: var(--muted);
   transition: color 0.2s, border-color 0.2s;
 }
-#panel-close:hover, #panel-close:focus-visible { color: var(--accent); border-color: var(--accent); }
+#panel-close svg { width: 16px; height: 16px; display: block; }
+#panel-close:hover, #panel-close:focus-visible { color: var(--text); border-color: var(--muted); }
+.panel-divider { flex: none; height: 1px; background: var(--line); margin-top: 28px; }
 
-.panel-body { position: relative; z-index: 1; padding: 26px 30px 30px; overflow-y: auto; flex: 1; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
-.panel-body::-webkit-scrollbar { width: 8px; }
-.panel-body::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+.panel-body {
+  flex: 1; min-height: 0; overflow-y: auto; padding-top: 28px;
+  scrollbar-width: thin; scrollbar-color: var(--accent) #262522;
+}
+.panel-body::-webkit-scrollbar { width: 6px; }
+.panel-body::-webkit-scrollbar-track { background: #262522; }
+.panel-body::-webkit-scrollbar-thumb { background: var(--accent); }
 
 /* staggered entrance for content items */
 @keyframes panel-item-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 #panel.open .anim-item { animation: panel-item-in 0.5s cubic-bezier(0.22, 1, 0.3, 1) both; animation-delay: calc(var(--i, 0) * 55ms); }
 
-/* panel content pieces */
-.p-text { font-size: 15px; line-height: 1.75; color: var(--text); max-width: 62ch; }
+.p-text { font-size: 16px; line-height: 1.6; color: var(--text-2); max-width: 64ch; }
 
-/* Experience — dimension-line timeline */
+/* ---------- Experience ---------- */
 .timeline { position: relative; }
 .entry {
-  position: relative; padding: 4px 0 21px 40px; border-left: 1px solid var(--line-soft);
-  display: flex; gap: 24px; align-items: flex-start;
+  position: relative; display: flex; gap: 24px; align-items: flex-start;
+  padding: 0 0 30px 34px; border-left: 1px solid var(--line);
 }
-.entry:last-child { padding-bottom: 6px; }
+.entry:last-child { padding-bottom: 2px; }
+.entry::before {            /* solid square marker, no glow */
+  content: ""; position: absolute; left: -4.5px; top: 7px;
+  width: 8px; height: 8px; background: var(--accent);
+}
 .entry-body { min-width: 0; }
-/* company logo tile — most of these art files sit on white, so the tile keeps
-   a light backing and the one dark logo simply covers it */
 .entry-logo {
-  flex: none; width: 72px; height: 72px; margin-top: 2px;
-  border: 1px solid var(--line-soft); border-radius: 11px; overflow: hidden;
-  background: #f6f7f6;
-  transition: border-color 0.22s, transform 0.22s, box-shadow 0.22s;
+  flex: none; width: 88px; height: 88px; border-radius: 10px;
+  background: #fff; overflow: hidden;
 }
 .entry-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.entry:hover .entry-logo {
-  border-color: rgba(46, 158, 99, 0.55);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45), 0 0 16px rgba(46, 158, 99, 0.14);
+.entry h3 {
+  font-family: var(--font-main); font-size: 26px; font-weight: 600;
+  line-height: 1.2; color: var(--text); letter-spacing: -0.005em;
 }
-.entry::before { /* glowing node */
-  content: ""; position: absolute; left: -6px; top: 10px;
-  width: 11px; height: 11px; border-radius: 50%; background: var(--accent);
-  box-shadow: 0 0 0 4px rgba(46, 158, 99, 0.13), 0 0 14px rgba(46, 158, 99, 0.55);
+.entry .meta {
+  margin-top: 7px; font-family: var(--font-main); font-size: 15px; color: var(--muted);
 }
-.entry::after { /* dimension tick reaching toward the text */
-  content: ""; position: absolute; left: 0; top: 15px; width: 28px; height: 1px;
-  background: linear-gradient(to right, var(--accent), rgba(46, 158, 99, 0));
-}
-.entry h3 { font-size: 22px; font-weight: 600; letter-spacing: 0.01em; line-height: 1.25; }
-.entry .meta { margin-top: 9px; font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
-.entry p { margin-top: 13px; font-size: 15px; line-height: 1.7; color: var(--dim); max-width: 70ch; }
-.entry-bullets { margin-top: 9px; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.entry .meta .dt { font-family: var(--font-data); font-size: 13px; letter-spacing: 0.01em; }
+.entry-bullets { margin-top: 14px; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 9px; }
 .entry-bullets li {
-  position: relative; padding-left: 17px; max-width: 70ch;
-  font-size: 15px; line-height: 1.6; color: var(--dim);
+  position: relative; padding-left: 22px; max-width: 70ch;
+  font-size: 16px; line-height: 1.55; color: var(--text-2);
 }
-.entry-bullets li::before {   /* small diamond tick, matching the drawing style */
-  content: ""; position: absolute; left: 2px; top: 0.58em;
-  width: 5px; height: 5px; background: var(--accent); opacity: 0.8; transform: rotate(45deg);
+.entry-bullets li::before {  /* 10x2 accent dash */
+  content: ""; position: absolute; left: 0; top: 0.62em;
+  width: 10px; height: 2px; background: var(--accent);
 }
+.entry p { margin-top: 12px; font-size: 16px; line-height: 1.55; color: var(--text-2); max-width: 70ch; }
 
-/* Projects — 2x2 of image cards; the panel scrolls if the viewport is short */
-.proj-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 11px; }
+/* ---------- Projects ---------- */
+.proj-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
 .proj-card {
   display: flex; flex-direction: column;
-  border: 1px solid var(--line-soft); border-radius: 9px; overflow: hidden;
-  background: rgba(255, 255, 255, 0.015);
-  transition: border-color 0.22s, transform 0.22s, box-shadow 0.22s;
+  border: 1px solid var(--line); background: var(--card);
+  transition: border-color 0.22s;
 }
-.proj-card:hover {
-  border-color: rgba(46, 158, 99, 0.5); transform: translateY(-3px);
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.42), 0 0 22px rgba(46, 158, 99, 0.11);
-}
-.proj-shots { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line-soft); }
-.proj-shot { aspect-ratio: 16 / 9; background: #101417; display: grid; place-items: center; overflow: hidden; }
+.proj-card:hover { border-color: var(--border); }
+.proj-shots { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); }
+/* Each half-slot carries the sources' own 16:9, so the pair shows complete
+   instead of being centre-cropped, and it stays exact as the card resizes.
+   (A fixed-height band made each slot taller than wide and cut ~48% away.) */
+.proj-shot { aspect-ratio: 16 / 9; overflow: hidden; background: #121211; display: grid; place-items: center; }
 .proj-shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.proj-slot { display: flex; flex-direction: column; align-items: center; gap: 6px; color: #59635f; }
-.proj-slot svg { width: 21px; height: 21px; }
-.proj-slot span { font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.22em; text-transform: uppercase; }
-.proj-body { padding: 11px 14px 13px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
-.proj-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-.proj-title { font-size: 15px; font-weight: 600; letter-spacing: 0.01em; }
-.proj-date {
-  flex: none; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.16em;
-  text-transform: uppercase; color: var(--accent);
+.proj-slot { display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--muted); }
+.proj-slot svg { width: 20px; height: 20px; }
+.proj-slot span { font-family: var(--font-data); font-size: 11px; }
+.proj-body { padding: 20px 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.proj-title { font-family: var(--font-main); font-size: 22px; font-weight: 600; line-height: 1.2; color: var(--text); }
+.proj-date { font-family: var(--font-data); font-size: 13px; color: var(--muted); margin-top: -4px; }
+.proj-desc { font-size: 15px; line-height: 1.5; color: var(--text-2); margin: 0; flex: 1; }
+.proj-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.proj-tag {
+  font-family: var(--font-data); font-size: 11px; padding: 4px 8px;
+  border: 1px solid var(--border); color: var(--muted);
 }
-.proj-desc { font-size: 12.5px; line-height: 1.6; color: var(--dim); flex: 1; margin: 0; }
 .proj-link {
-  display: inline-flex; align-items: center; gap: 7px; align-self: flex-start;
-  font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--accent); text-decoration: none; transition: opacity 0.2s;
+  display: inline-flex; align-items: center; gap: 6px; align-self: flex-start;
+  font-family: var(--font-data); font-size: 13px; color: var(--accent); text-decoration: none;
 }
-.proj-link svg { width: 14px; height: 14px; flex: none; }
 a.proj-link:hover, a.proj-link:focus-visible { text-decoration: underline; }
-.proj-link.is-empty { color: #5d6763; }
+.proj-link.is-empty { color: var(--muted); }
 
-/* legacy card list (superseded by .proj-grid above) */
-.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; counter-reset: proj; }
-.card {
-  position: relative; counter-increment: proj; overflow: hidden;
-  border: 1px solid var(--line-soft); border-radius: 8px; padding: 20px 20px 18px;
-  background: rgba(255, 255, 255, 0.015);
-  display: flex; flex-direction: column; gap: 10px;
-  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
-}
-.card::before { /* index tag */
-  content: "P-" counter(proj, decimal-leading-zero);
-  position: absolute; top: 14px; right: 15px;
-  font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.2em; color: var(--dim); opacity: 0.65;
-}
-.card::after { /* top accent bar, grows on hover */
-  content: ""; position: absolute; top: 0; left: 0; height: 2px; width: 0;
-  background: linear-gradient(to right, var(--accent), rgba(46, 158, 99, 0));
-  transition: width 0.4s cubic-bezier(0.22, 1, 0.3, 1);
-}
-.card:hover { border-color: rgba(46, 158, 99, 0.5); transform: translateY(-3px); box-shadow: 0 14px 32px rgba(0, 0, 0, 0.4), 0 0 26px rgba(46, 158, 99, 0.12); }
-.card:hover::after { width: 100%; }
-.card h3 { font-size: 15px; font-weight: 600; padding-right: 44px; }
-.card p { font-size: 13.5px; line-height: 1.65; color: var(--dim); flex: 1; }
-.card a {
-  font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase;
-  text-decoration: none; color: var(--accent); align-self: flex-start;
-}
-.card a:hover, .card a:focus-visible { text-decoration: underline; }
-
-/* Skills — categorised, colour-coded component boxes */
-.skill-groups { display: flex; flex-direction: column; gap: 13px; }
+/* ---------- Skills ---------- */
+.skill-groups { display: flex; flex-direction: column; gap: 22px; }
 .skill-group-title {
-  font-family: var(--mono); font-size: 10px; font-weight: 600;
-  letter-spacing: 0.26em; text-transform: uppercase; color: var(--dim);
-  margin-bottom: 9px; padding-bottom: 6px; border-bottom: 1px solid var(--line-soft);
+  font-family: var(--font-data); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.04em; color: var(--muted);
+  margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line);
 }
-.skill-grid { display: flex; flex-wrap: wrap; gap: 7px; }
+.skill-grid { display: flex; flex-wrap: wrap; gap: 8px; }
 .skill-chip {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 8px 12px; border-radius: 6px;
+  padding: 8px 12px;
   border: 1px solid var(--c-bd); background: var(--c-bg);
-  color: #eaf1ec; font-size: 13.5px; letter-spacing: 0.01em; white-space: nowrap;
-  transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
+  color: var(--text); font-family: var(--font-main); font-size: 14px; white-space: nowrap;
+  transition: transform 0.18s, background 0.18s;
 }
-.skill-chip:hover {
-  transform: translateY(-2px); background: var(--c-bg-hi);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-}
-.skill-ico { flex: none; width: 18px; height: 18px; color: var(--c); }
-.skill-ico svg { width: 100%; height: 100%; display: block; }
+.skill-chip:hover { transform: translateY(-2px); background: var(--c-bg-hi); }
+.skill-ico { flex: none; width: 16px; height: 16px; color: var(--c); }
+.skill-ico svg { width: 100%; height: 100%; display: block; fill: currentColor; }
 .skill-name { line-height: 1; }
 
-/* legacy flat chip list (unused once skills are grouped) */
-.chips { display: flex; flex-wrap: wrap; gap: 10px; counter-reset: skill; }
-.chip {
-  position: relative; counter-increment: skill;
-  font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em;
-  padding: 9px 15px; border: 1px solid var(--line); border-radius: 6px;
-  color: var(--text); background: rgba(255, 255, 255, 0.015);
-  transition: border-color 0.2s, color 0.2s, background 0.2s, box-shadow 0.2s;
-}
-.chip::before {
-  content: counter(skill, decimal-leading-zero);
-  margin-right: 9px; color: var(--accent); opacity: 0.7; font-size: 10px;
-}
-.chip:hover { border-color: var(--accent); color: #eafff2; background: rgba(46, 158, 99, 0.1); box-shadow: 0 0 18px rgba(46, 158, 99, 0.14); }
-
-/* Contact — spec rows with arrow */
+/* ---------- Contact ---------- */
 .spec-rows { display: flex; flex-direction: column; }
 .spec-row {
   position: relative; display: flex; align-items: center; gap: 14px;
-  padding: 15px 26px 15px 14px; border-bottom: 1px solid var(--line-soft);
-  text-decoration: none; transition: background 0.2s, padding-left 0.2s;
+  padding: 16px 26px 16px 2px; border-bottom: 1px solid var(--line);
+  text-decoration: none; transition: color 0.2s;
 }
-.spec-row .ico { flex: none; width: 17px; height: 17px; color: var(--dim); transition: color 0.2s; }
+.spec-row:first-child { border-top: 1px solid var(--line); }
+.spec-row .ico { flex: none; width: 17px; height: 17px; color: var(--muted); transition: color 0.2s; }
 .spec-row .ico svg { width: 100%; height: 100%; display: block; }
-a.spec-row:hover .ico, a.spec-row:focus-visible .ico { color: var(--accent); }
-.spec-row:first-child { border-top: 1px solid var(--line-soft); }
-.spec-row::before { /* left accent tick */
-  content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
-  width: 2px; height: 0; background: var(--accent); transition: height 0.2s ease;
-}
 .spec-row .k {
-  flex: none; width: 92px; font-family: var(--mono); font-size: 10px;
-  letter-spacing: 0.26em; text-transform: uppercase; color: var(--dim);
+  flex: none; width: 92px; font-family: var(--font-data); font-size: 12px; color: var(--muted);
 }
-.spec-row .v { font-size: 14px; color: var(--text); word-break: break-word; }
+.spec-row .v { font-size: 15px; color: var(--text-2); word-break: break-word; }
 a.spec-row::after {
-  content: "\203A"; position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
-  font-size: 18px; color: var(--accent); opacity: 0; transition: opacity 0.2s, right 0.2s;
+  content: "\2197"; position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  font-size: 14px; color: var(--accent); opacity: 0; transition: opacity 0.2s;
 }
-a.spec-row:hover, a.spec-row:focus-visible { background: rgba(46, 158, 99, 0.06); padding-left: 20px; }
+a.spec-row:hover .ico, a.spec-row:focus-visible .ico,
 a.spec-row:hover .v, a.spec-row:focus-visible .v { color: var(--accent); }
-a.spec-row:hover::before, a.spec-row:focus-visible::before { height: 60%; }
-a.spec-row:hover::after, a.spec-row:focus-visible::after { opacity: 1; right: 8px; }
+a.spec-row:hover::after, a.spec-row:focus-visible::after { opacity: 1; }
 
-/* Education — titleblock plate */
-.edu-plate {
-  position: relative; padding: 18px 20px; border: 1px solid var(--line-soft); border-radius: 8px;
-  background: rgba(255, 255, 255, 0.015); overflow: hidden;
-}
-.edu-plate::before {
-  content: ""; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
-  background: linear-gradient(to bottom, var(--accent), rgba(46, 158, 99, 0));
-}
+/* ---------- Education ---------- */
+.edu-plate { position: relative; padding: 22px 24px; border: 1px solid var(--line); background: var(--card); }
 .edu-head { display: flex; gap: 18px; align-items: flex-start; }
-/* the crest is a transparent PNG, so it needs a light tile behind it and
-   `contain` so the circular seal isn't cropped */
 .edu-logo {
-  flex: none; width: 66px; height: 66px; margin-top: 2px; padding: 4px;
-  border: 1px solid var(--line-soft); border-radius: 11px;
-  background: #f6f7f6; overflow: hidden;
-  transition: border-color 0.22s, box-shadow 0.22s;
+  flex: none; width: 72px; height: 72px; padding: 5px; border-radius: 10px;
+  background: #fff; overflow: hidden;
 }
 .edu-logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
-.edu-plate:hover .edu-logo {
-  border-color: rgba(46, 158, 99, 0.55);
-  box-shadow: 0 0 16px rgba(46, 158, 99, 0.14);
-}
-.edu-school { font-size: 19px; font-weight: 600; }
-.edu-program { margin-top: 6px; font-size: 15px; color: var(--text); }
-.edu-dates { margin-top: 8px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
-.edu-details { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line-soft); font-size: 14px; line-height: 1.75; color: var(--dim); }
-/* GPA / awards / courses, as a spec-sheet readout */
-.edu-rows {
-  margin-top: 16px; padding-top: 15px; border-top: 1px solid var(--line-soft);
-  display: flex; flex-direction: column; gap: 11px;
-}
-.edu-row { display: flex; gap: 16px; align-items: baseline; }
-.edu-row .k {
-  flex: none; width: 74px; font-family: var(--mono); font-size: 10px;
-  letter-spacing: 0.24em; text-transform: uppercase; color: var(--dim);
-}
-.edu-row .v { font-size: 14px; color: var(--text); display: flex; flex-wrap: wrap; gap: 8px; min-width: 0; }
+.edu-school { font-family: var(--font-main); font-size: 22px; font-weight: 600; color: var(--text); }
+.edu-program { margin-top: 6px; font-size: 16px; color: var(--text-2); }
+.edu-dates { margin-top: 8px; font-family: var(--font-data); font-size: 13px; color: var(--muted); }
+.edu-details { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 15px; line-height: 1.6; color: var(--text-2); }
+.edu-rows { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 14px; }
+.edu-row { display: flex; gap: 18px; align-items: baseline; }
+.edu-row .k { flex: none; width: 82px; font-family: var(--font-data); font-size: 12px; color: var(--muted); }
+.edu-row .v { font-size: 15px; color: var(--text-2); display: flex; flex-wrap: wrap; gap: 8px; min-width: 0; }
 .edu-tag {
-  font-family: var(--mono); font-size: 11px; letter-spacing: 0.03em;
-  padding: 4px 10px; border: 1px solid var(--line-soft); border-radius: 5px;
-  color: var(--text); background: rgba(255, 255, 255, 0.02);
+  font-family: var(--font-data); font-size: 12px; padding: 5px 10px;
+  border: 1px solid var(--border); color: var(--text-2);
+}
+
+/* ---------- About Me — car stereo head unit ---------- */
+.about-wrap { display: grid; grid-template-columns: 640px 1fr; gap: 40px; align-items: start; }
+.about-wrap > * { min-width: 0; }   /* let the radio shrink instead of forcing the column wide */
+.radio {
+  background: #121211; border: 1px solid var(--line); border-radius: 6px;
+  padding: 20px; display: flex; flex-direction: column; gap: 16px;
+}
+/* 1 — LCD */
+.radio-lcd {
+  height: 56px; background: #0A0B09; border: 1px solid #2A2926;
+  display: flex; align-items: center; justify-content: space-between; padding: 0 16px;
+  font-family: var(--font-data);
+}
+.lcd-freq { font-size: 26px; font-weight: 600; color: var(--accent); line-height: 1; }
+.lcd-right { display: flex; align-items: center; gap: 10px; }
+.lcd-st { font-size: 11px; font-weight: 600; color: var(--accent); }
+.lcd-bars { display: flex; align-items: flex-end; gap: 2px; height: 14px; }
+.lcd-bars i { width: 3px; background: var(--accent); display: block; }
+.lcd-bars i:nth-child(1) { height: 5px; }
+.lcd-bars i:nth-child(2) { height: 8px; }
+.lcd-bars i:nth-child(3) { height: 11px; }
+.lcd-bars i:nth-child(4) { height: 14px; }
+.lcd-count { font-size: 12px; color: var(--muted); }
+/* 2 — photo strip */
+.radio-strip { display: flex; align-items: center; gap: 12px; }
+.strip-btn {
+  flex: none; width: 48px; height: 48px; border-radius: 50%;
+  background: #1E1E1B; border: 1.5px solid var(--border);
+  display: grid; place-items: center; color: var(--text-2);
   transition: border-color 0.2s, color 0.2s;
 }
-.edu-tag:hover { border-color: rgba(46, 158, 99, 0.5); color: var(--accent); }
-
-
+.strip-btn:hover, .strip-btn:focus-visible { border-color: var(--accent); color: var(--accent); }
+.strip-btn svg { width: 18px; height: 18px; display: block; }
+.strip-view { flex: 1 1 auto; min-width: 0; max-width: 472px; height: 180px; overflow: hidden; position: relative; }
+.strip-row {
+  display: flex; gap: 14px; height: 100%;
+  transition: transform 0.45s cubic-bezier(.2,.8,.2,1);
+}
+.strip-tile {
+  flex: none; width: 240px; height: 180px; overflow: hidden;
+  border: 1.5px solid transparent; opacity: 0.4;
+  transition: opacity 0.45s cubic-bezier(.2,.8,.2,1), border-color 0.45s;
+  background: #161614;
+}
+.strip-tile.is-current { opacity: 1; border-color: var(--accent); }
+.strip-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.strip-ph {          /* striped placeholder until real photos land */
+  width: 100%; height: 100%; display: grid; place-items: center;
+  font-family: var(--font-data); font-size: 12px; color: var(--muted);
+  background: repeating-linear-gradient(135deg, #1A1A18 0 10px, #1E1E1B 10px 20px);
+}
+/* 3 — tuning dial */
+.radio-dial { width: 600px; max-width: 100%; position: relative; }
+.dial-ticks { position: relative; height: 34px; }
+.dial-ticks i { position: absolute; bottom: 0; width: 1px; background: var(--border); }
+.dial-ticks i.minor { height: 8px; }
+.dial-ticks i.major { height: 16px; background: var(--muted); }
+.dial-ticks i:last-of-type { transform: translateX(-100%); }  /* keep the 108 tick inside */
+.dial-labels { position: relative; height: 14px; font-family: var(--font-data); font-size: 10px; color: var(--muted); }
+.dial-labels span { position: absolute; transform: translateX(-50%); }
+/* keep the first/last labels inside the dial instead of hanging half off */
+.dial-labels span:first-child { transform: none; }
+.dial-labels span:last-child { transform: translateX(-100%); }
+.dial-needle {
+  position: absolute; top: 0; height: 34px; width: 2px; background: var(--accent);
+  transition: left 0.45s cubic-bezier(.2,.8,.2,1);
+}
+/* 4 — presets */
+.radio-presets { display: flex; gap: 8px; }
+.preset {
+  flex: 1; height: 44px; border: 1px solid var(--border); background: transparent;
+  color: var(--text-2); font-family: var(--font-data); font-size: 14px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.preset:hover { border-color: var(--muted); }
+.preset[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+/* right column */
+.about-text h3 { font-family: var(--font-main); font-size: 22px; font-weight: 600; color: var(--text); }
+.about-text p { margin-top: 14px; font-size: 15px; line-height: 1.6; color: var(--text-2); }
 /* ---------- a11y helpers ---------- */
 .sr-only {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
@@ -643,30 +613,49 @@ a.spec-row:hover::after, a.spec-row:focus-visible::after { opacity: 1; right: 8p
 /* ---------- responsive ---------- */
 @media (max-width: 700px) {
   #ext-links { right: 12px; }
-  #panel.size-large { width: 94vw; height: 88vh; }
-  #panel.size-small { width: 94vw; max-height: 82vh; }
-  .panel-head { padding: 20px 20px 16px; }
-  .panel-body { padding: 18px 20px 24px; }
   .part-label .pl-part { display: none; }
   .part-label { padding: 6px 10px; }
   .edu-row { flex-direction: column; gap: 8px; }
   .edu-row .k { width: auto; }
-  .proj-grid { grid-template-columns: 1fr; gap: 13px; }
-  .panel-wm { font-size: 118px; top: -10px; right: 12px; }
-  .panel-head { padding: 20px 20px 14px; }
-  .entry { padding-left: 24px; gap: 14px; padding-bottom: 24px; }
-  .entry-logo { width: 48px; height: 48px; }
-  .entry h3 { font-size: 17px; }
-  .entry .meta { font-size: 11px; }
-  .edu-logo { width: 50px; height: 50px; }
+  .panel-inner { padding: 28px 22px 30px; }
+  .panel-title { font-size: 30px; }
+  .panel-num { width: 38px; height: 38px; font-size: 13px; }
+  #panel-close { width: 38px; height: 38px; }
+  .entry { padding-left: 24px; gap: 16px; padding-bottom: 24px; }
+  .entry-logo { width: 60px; height: 60px; }
+  .entry h3 { font-size: 20px; }
+  .entry-bullets li { font-size: 15px; }
+  .edu-logo { width: 56px; height: 56px; }
   .edu-head { gap: 14px; }
+}
+/* Projects: one column on narrow screens */
+@media (max-width: 720px) {
+  .proj-grid { grid-template-columns: 1fr; gap: 16px; }
+}
+/* About radio: stack and scale the strip down */
+@media (max-width: 900px) {
+  .about-wrap { grid-template-columns: 1fr; gap: 28px; }
+  .radio { padding: 16px; }
+  .strip-view { height: 150px; }
+  .strip-tile { width: 200px; height: 150px; }
+  .radio-dial { width: 100%; }
+}
+/* phones: shrink the strip so the current photo fits and neighbours still peek */
+@media (max-width: 560px) {
+  .radio-strip { gap: 8px; }
+  .strip-btn { width: 38px; height: 38px; }
+  .strip-btn svg { width: 15px; height: 15px; }
+  .strip-tile { width: 132px; height: 99px; }
+  .strip-view { height: 99px; }
+  .strip-row { gap: 8px; }
+  .radio-presets { gap: 6px; }
+  .preset { height: 38px; font-size: 13px; }
 }
 @media (prefers-reduced-motion: reduce) {
   #hint.show { animation: none; opacity: 0.8; }
   #panel, #backdrop, #stage { transition-duration: 0.01s; }
   #panel.open .anim-item { animation: none; }
-  .panel-titleblock .tb-dot { animation: none; }
-  #panel.open .panel-underline { transition-duration: 0.01s; }
+  .strip-row, .strip-tile, .dial-needle { transition: none !important; }
 }
 </style>
 </head>
@@ -698,20 +687,19 @@ a.spec-row:hover::after, a.spec-row:focus-visible::after { opacity: 1; right: 8p
 <div id="backdrop"></div>
 
 <section id="panel" role="dialog" aria-modal="true" aria-labelledby="panel-title-el">
-  <div class="panel-frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-  <div class="panel-wm" id="panel-wm" aria-hidden="true"></div>
-  <div class="panel-head">
-    <div class="panel-head-row">
-      <div>
-        <div class="panel-eyebrow" id="panel-eyebrow"></div>
+  <div class="panel-edge">
+    <div class="panel-inner">
+      <div class="panel-head">
+        <span class="panel-num" id="panel-num" aria-hidden="true"></span>
         <h2 class="panel-title" id="panel-title-el"></h2>
+        <button id="panel-close" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
+        </button>
       </div>
-      <button id="panel-close" aria-label="Close panel">&#10005;</button>
+      <div class="panel-divider"></div>
+      <div class="panel-body" id="panel-body"></div>
     </div>
-    <div class="panel-underline"></div>
-    <div class="panel-titleblock" id="panel-titleblock" aria-hidden="true"></div>
   </div>
-  <div class="panel-body" id="panel-body"></div>
 </section>
 
 <div class="sr-only" role="status" aria-live="polite" id="announcer"></div>
@@ -1722,12 +1710,9 @@ renderer.domElement.addEventListener('pointerup', (e) => {
 const panel = document.getElementById('panel');
 const backdrop = document.getElementById('backdrop');
 const panelBody = document.getElementById('panel-body');
-const panelEyebrow = document.getElementById('panel-eyebrow');
 const panelTitleEl = document.getElementById('panel-title-el');
 const panelClose = document.getElementById('panel-close');
-const panelWm = document.getElementById('panel-wm');
-const panelTitleblock = document.getElementById('panel-titleblock');
-const SECTION_TOTAL = String(SECTION_ORDER.length).padStart(2, '0');
+const panelNum = document.getElementById('panel-num');
 let panelOpen = false;
 let lastFocused = null;
 
@@ -1745,6 +1730,41 @@ const CONTACT_ICONS = {
    concept — not official brand logos — so they stay consistent with each
    other and need no network fetch. Colour carries the brand association.
    --------------------------------------------------------------------- */
+/* Brand logo silhouettes, single-path 24x24, inlined from Simple Icons (CC0).
+   Only products with their own authentic mark are listed; everything else
+   renders as text alone. Logos remain trademarks of their respective owners. */
+const SKILL_LOGOS = {
+  'AutoCAD': 'M3.8672 1.0527v.0157L0 3.3848v17.914l3.8965-2.332h18.3398V2.3301c0-.702-.5773-1.2774-1.2793-1.2774H3.8672zm7.5058 4.0098h3.3008l2.9844 9.9512h-2.5879l-.5683-2.1895h-2.9844l-.5703 2.1621h-2.416l2.8417-9.9238zm11.8633.0273v14.877H4.172l-2.0684 1.2383v.4648c0 .702.5793 1.2774 1.2813 1.2774H24V5.0898h-.7637zM12.9668 6.6816l-.9941 4.3243h2.0468l-1.0527-4.3243z',
+  'C++': 'M22.394 6c-.167-.29-.398-.543-.652-.69L12.926.22c-.509-.294-1.34-.294-1.848 0L2.26 5.31c-.508.293-.923 1.013-.923 1.6v10.18c0 .294.104.62.271.91.167.29.398.543.652.69l8.816 5.09c.508.293 1.34.293 1.848 0l8.816-5.09c.254-.147.485-.4.652-.69.167-.29.27-.616.27-.91V6.91c.003-.294-.1-.62-.268-.91zM12 19.11c-3.92 0-7.109-3.19-7.109-7.11 0-3.92 3.19-7.11 7.11-7.11a7.133 7.133 0 016.156 3.553l-3.076 1.78a3.567 3.567 0 00-3.08-1.78A3.56 3.56 0 008.444 12 3.56 3.56 0 0012 15.555a3.57 3.57 0 003.08-1.778l3.078 1.78A7.135 7.135 0 0112 19.11zm7.11-6.715h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79zm2.962 0h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79z',
+  'Python': 'M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z',
+  'JavaScript': 'M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z',
+  'Arduino': 'M18.087 6.146c-.3 0-.607.017-.907.069-2.532.367-4.23 2.239-5.18 3.674-.95-1.435-2.648-3.307-5.18-3.674a6.49 6.49 0 0 0-.907-.069C2.648 6.146 0 8.77 0 12s2.656 5.854 5.913 5.854c.3 0 .607-.017.916-.069 2.531-.376 4.23-2.247 5.18-3.683.949 1.436 2.647 3.307 5.18 3.683.299.043.607.069.915.069C21.344 17.854 24 15.23 24 12s-2.656-5.854-5.913-5.854zM6.53 15.734a3.837 3.837 0 0 1-.625.043c-2.148 0-3.889-1.7-3.889-3.777 0-2.085 1.749-3.777 3.898-3.777.208 0 .416.017.624.043 2.39.35 3.847 2.768 4.347 3.734-.508.974-1.974 3.384-4.355 3.734zm11.558.043c-.208 0-.416-.017-.624-.043-2.39-.35-3.856-2.768-4.347-3.734.491-.966 1.957-3.384 4.347-3.734.208-.026.416-.043.624-.043 2.149 0 3.89 1.7 3.89 3.777 0 2.085-1.75 3.777-3.89 3.777zm1.65-4.404v1.134h-1.205v1.182h-1.156v-1.182H16.17v-1.134h1.206V10.19h1.156v1.183h1.206zM4.246 12.498H7.82v-1.125H4.245v1.125z',
+  'Embedded C': 'M16.5921 9.1962s-.354-3.298-3.627-3.39c-3.2741-.09-4.9552 2.474-4.9552 6.14 0 3.6651 1.858 6.5972 5.0451 6.5972 3.184 0 3.5381-3.665 3.5381-3.665l6.1041.365s.36 3.31-2.196 5.836c-2.552 2.5241-5.6901 2.9371-7.8762 2.9201-2.19-.017-5.2261.034-8.1602-2.97-2.938-3.0101-3.436-5.9302-3.436-8.8002 0-2.8701.556-6.6702 4.047-9.5502C7.444.72 9.849 0 12.254 0c10.0422 0 10.7172 9.2602 10.7172 9.2602z',
+  'STM32': 'M 23.818 5.61 L 6.402 5.61 C 5.125 5.609 3.968 6.362 3.452 7.529 L 0.014 15.811 C -0.036 15.931 0.052 16.063 0.182 16.061 L 8.046 16.061 C 8.601 16.061 8.848 15.523 8.412 15.093 L 5.524 12.388 C 4.008 10.9 4.658 7.45 7.81 7.45 L 23.206 7.45 C 23.283 7.451 23.352 7.402 23.378 7.329 L 23.987 5.857 C 23.996 5.835 24.001 5.811 24 5.787 C 23.997 5.689 23.917 5.61 23.818 5.61 M 22.082 9.826 L 19.126 9.826 C 18.932 9.825 18.756 9.94 18.681 10.118 L 15.369 18.118 C 15.355 18.144 15.347 18.173 15.347 18.202 C 15.348 18.302 15.429 18.383 15.529 18.381 L 16.632 18.381 C 17.93 18.387 19.105 17.613 19.612 16.418 L 22.244 10.063 C 22.252 10.042 22.257 10.019 22.257 9.996 C 22.253 9.902 22.176 9.828 22.082 9.826 M 16.271 10.005 C 16.271 9.905 16.189 9.825 16.089 9.825 L 7.706 9.825 C 7.251 9.825 6.853 10.38 7.335 10.825 L 10.104 13.404 C 10.104 13.404 11.224 14.437 10.984 15.916 C 10.778 17.219 9.889 18.016 9.241 18.302 C 9.208 18.31 9.196 18.351 9.219 18.376 C 9.23 18.387 9.246 18.392 9.261 18.388 L 12.489 18.388 C 12.683 18.39 12.859 18.275 12.934 18.095 L 16.256 10.068 C 16.266 10.049 16.271 10.027 16.271 10.005',
+  'ROS': 'M2.807 0C1.353 0 .173 1.22.173 2.722c0 1.504 1.18 2.723 2.634 2.723 1.455 0 2.635-1.22 2.635-2.723S4.262 0 2.807 0zM12 0c-1.455 0-2.634 1.22-2.634 2.722 0 1.504 1.18 2.723 2.634 2.723 1.455 0 2.634-1.22 2.634-2.723S13.454 0 12 0zm9.193 0c-1.455 0-2.635 1.22-2.635 2.722 0 1.504 1.18 2.723 2.635 2.723 1.455 0 2.634-1.22 2.634-2.723S22.647 0 21.193 0zM2.807 9.277C1.353 9.277.173 10.497.173 12s1.18 2.722 2.634 2.722c1.455 0 2.635-1.219 2.635-2.722 0-1.504-1.18-2.723-2.635-2.723zm9.193 0c-1.455 0-2.634 1.22-2.634 2.723s1.18 2.722 2.634 2.722c1.455 0 2.634-1.219 2.634-2.722 0-1.504-1.18-2.723-2.634-2.723zm9.193 0c-1.455 0-2.635 1.22-2.635 2.723s1.18 2.722 2.635 2.722c1.455 0 2.634-1.219 2.634-2.722 0-1.504-1.18-2.723-2.634-2.723zM2.807 18.555c-1.454 0-2.634 1.22-2.634 2.722C.173 22.781 1.353 24 2.807 24c1.455 0 2.635-1.22 2.635-2.723s-1.18-2.722-2.635-2.722zm9.193 0c-1.455 0-2.634 1.22-2.634 2.722C9.366 22.781 10.546 24 12 24c1.455 0 2.634-1.22 2.634-2.723s-1.18-2.722-2.634-2.722zm9.193 0c-1.455 0-2.635 1.22-2.635 2.722 0 1.504 1.18 2.723 2.635 2.723 1.455 0 2.634-1.22 2.634-2.723s-1.18-2.722-2.634-2.722z',
+  'HTML': 'M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z',
+  'CSS': 'M0 0v20.16A3.84 3.84 0 0 0 3.84 24h16.32A3.84 3.84 0 0 0 24 20.16V3.84A3.84 3.84 0 0 0 20.16 0Zm14.256 13.08c1.56 0 2.28 1.08 2.304 2.64h-1.608c.024-.288-.048-.6-.144-.84-.096-.192-.288-.264-.552-.264-.456 0-.696.264-.696.84-.024.576.288.888.768 1.08.72.288 1.608.744 1.92 1.296q.432.648.432 1.656c0 1.608-.912 2.592-2.496 2.592-1.656 0-2.4-1.032-2.424-2.688h1.68c0 .792.264 1.176.792 1.176.264 0 .456-.072.552-.24.192-.312.24-1.176-.048-1.512-.312-.408-.912-.6-1.32-.816q-.828-.396-1.224-.936c-.24-.36-.36-.888-.36-1.536 0-1.44.936-2.472 2.424-2.448m5.4 0c1.584 0 2.304 1.08 2.328 2.64h-1.608c0-.288-.048-.6-.168-.84-.096-.192-.264-.264-.528-.264-.48 0-.72.264-.72.84s.288.888.792 1.08c.696.288 1.608.744 1.92 1.296.264.432.408.984.408 1.656.024 1.608-.888 2.592-2.472 2.592-1.68 0-2.424-1.056-2.448-2.688h1.68c0 .744.264 1.176.792 1.176.264 0 .456-.072.552-.24.216-.312.264-1.176-.048-1.512-.288-.408-.888-.6-1.32-.816-.552-.264-.96-.576-1.2-.936s-.36-.888-.36-1.536c-.024-1.44.912-2.472 2.4-2.448m-11.031.018c.711-.006 1.419.198 1.839.63.432.432.672 1.128.648 1.992H9.336c.024-.456-.096-.792-.432-.96-.312-.144-.768-.048-.888.24-.12.264-.192.576-.168.864v3.504c0 .744.264 1.128.768 1.128a.65.65 0 0 0 .552-.264c.168-.24.192-.552.168-.84h1.776c.096 1.632-.984 2.712-2.568 2.688-1.536 0-2.496-.864-2.472-2.472v-4.032c0-.816.24-1.44.696-1.848.432-.408 1.146-.624 1.857-.63',
+  'React.js': 'M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.345.034.46 0 .915-.01 1.36-.034-.44.572-.895 1.095-1.345 1.565-.455-.47-.91-.993-1.36-1.565z',
+  'Next.js': 'M18.665 21.978C16.758 23.255 14.465 24 12 24 5.377 24 0 18.623 0 12S5.377 0 12 0s12 5.377 12 12c0 3.583-1.574 6.801-4.067 9.001L9.219 7.2H7.2v9.596h1.615V9.251l9.85 12.727Zm-3.332-8.533 1.6 2.061V7.2h-1.6v6.245Z',
+  'Pandas': 'M16.922 0h2.623v18.104h-2.623zm-4.126 12.94h2.623v2.57h-2.623zm0-7.037h2.623v5.446h-2.623zm0 11.197h2.623v5.446h-2.623zM4.456 5.896h2.622V24H4.455zm4.213 2.559h2.623v2.57H8.67zm0 4.151h2.623v5.447H8.67zm0-11.187h2.623v5.446H8.67Z',
+  'NumPy': 'M10.315 4.876L6.3048 2.8517l-4.401 2.1965 4.1186 2.0683zm1.8381.9277l4.2045 2.1223-4.3622 2.1906-4.125-2.0718zm5.6153-2.9213l4.3193 2.1658-3.863 1.9402-4.2131-2.1252zm-1.859-.9329L12.021 0 8.1742 1.9193l4.0068 2.0208zm-3.0401 16.7443V24l4.7107-2.3507-.0053-5.3085zm4.7037-4.2057l-.0052-5.2528-4.6985 2.3356v5.2546zm5.6553-.9845v5.327l-4.0178 2.0052-.0029-5.3028zm0-1.8626V6.4214l-4.0253 2.001.0034 5.2633zM11.2062 11.571L8.0333 9.9756v6.895s-3.8804-8.2564-4.2399-8.998c-.0463-.0957-.2371-.2007-.2858-.2262C2.8118 7.2812.773 6.2485.773 6.2485V18.43l2.8204 1.5076v-6.3674s3.8392 7.3775 3.878 7.458c.0389.0807.4245.8582.8362 1.1314.5485.363 2.8992 1.7766 2.8992 1.7766z',
+  'Git/GitHub': 'M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12',
+  'Linux (WSL2)': 'M12.504 0c-.155 0-.315.008-.48.021-4.226.333-3.105 4.807-3.17 6.298-.076 1.092-.3 1.953-1.05 3.02-.885 1.051-2.127 2.75-2.716 4.521-.278.832-.41 1.684-.287 2.489a.424.424 0 00-.11.135c-.26.268-.45.6-.663.839-.199.199-.485.267-.797.4-.313.136-.658.269-.864.68-.09.189-.136.394-.132.602 0 .199.027.4.055.536.058.399.116.728.04.97-.249.68-.28 1.145-.106 1.484.174.334.535.47.94.601.81.2 1.91.135 2.774.6.926.466 1.866.67 2.616.47.526-.116.97-.464 1.208-.946.587-.003 1.23-.269 2.26-.334.699-.058 1.574.267 2.577.2.025.134.063.198.114.333l.003.003c.391.778 1.113 1.132 1.884 1.071.771-.06 1.592-.536 2.257-1.306.631-.765 1.683-1.084 2.378-1.503.348-.199.629-.469.649-.853.023-.4-.2-.811-.714-1.376v-.097l-.003-.003c-.17-.2-.25-.535-.338-.926-.085-.401-.182-.786-.492-1.046h-.003c-.059-.054-.123-.067-.188-.135a.357.357 0 00-.19-.064c.431-1.278.264-2.55-.173-3.694-.533-1.41-1.465-2.638-2.175-3.483-.796-1.005-1.576-1.957-1.56-3.368.026-2.152.236-6.133-3.544-6.139zm.529 3.405h.013c.213 0 .396.062.584.198.19.135.33.332.438.533.105.259.158.459.166.724 0-.02.006-.04.006-.06v.105a.086.086 0 01-.004-.021l-.004-.024a1.807 1.807 0 01-.15.706.953.953 0 01-.213.335.71.71 0 00-.088-.042c-.104-.045-.198-.064-.284-.133a1.312 1.312 0 00-.22-.066c.05-.06.146-.133.183-.198.053-.128.082-.264.088-.402v-.02a1.21 1.21 0 00-.061-.4c-.045-.134-.101-.2-.183-.333-.084-.066-.167-.132-.267-.132h-.016c-.093 0-.176.03-.262.132a.8.8 0 00-.205.334 1.18 1.18 0 00-.09.4v.019c.002.089.008.179.02.267-.193-.067-.438-.135-.607-.202a1.635 1.635 0 01-.018-.2v-.02a1.772 1.772 0 01.15-.768c.082-.22.232-.406.43-.533a.985.985 0 01.594-.2zm-2.962.059h.036c.142 0 .27.048.399.135.146.129.264.288.344.465.09.199.14.4.153.667v.004c.007.134.006.2-.002.266v.08c-.03.007-.056.018-.083.024-.152.055-.274.135-.393.2.012-.09.013-.18.003-.267v-.015c-.012-.133-.04-.2-.082-.333a.613.613 0 00-.166-.267.248.248 0 00-.183-.064h-.021c-.071.006-.13.04-.186.132a.552.552 0 00-.12.27.944.944 0 00-.023.33v.015c.012.135.037.2.08.334.046.134.098.2.166.268.01.009.02.018.034.024-.07.057-.117.07-.176.136a.304.304 0 01-.131.068 2.62 2.62 0 01-.275-.402 1.772 1.772 0 01-.155-.667 1.759 1.759 0 01.08-.668 1.43 1.43 0 01.283-.535c.128-.133.26-.2.418-.2zm1.37 1.706c.332 0 .733.065 1.216.399.293.2.523.269 1.052.468h.003c.255.136.405.266.478.399v-.131a.571.571 0 01.016.47c-.123.31-.516.643-1.063.842v.002c-.268.135-.501.333-.775.465-.276.135-.588.292-1.012.267a1.139 1.139 0 01-.448-.067 3.566 3.566 0 01-.322-.198c-.195-.135-.363-.332-.612-.465v-.005h-.005c-.4-.246-.616-.512-.686-.71-.07-.268-.005-.47.193-.6.224-.135.38-.271.483-.336.104-.074.143-.102.176-.131h.002v-.003c.169-.202.436-.47.839-.601.139-.036.294-.065.466-.065zm2.8 2.142c.358 1.417 1.196 3.475 1.735 4.473.286.534.855 1.659 1.102 3.024.156-.005.33.018.513.064.646-1.671-.546-3.467-1.089-3.966-.22-.2-.232-.335-.123-.335.59.534 1.365 1.572 1.646 2.757.13.535.16 1.104.021 1.67.067.028.135.06.205.067 1.032.534 1.413.938 1.23 1.537v-.043c-.06-.003-.12 0-.18 0h-.016c.151-.467-.182-.825-1.065-1.224-.915-.4-1.646-.336-1.77.465-.008.043-.013.066-.018.135-.068.023-.139.053-.209.064-.43.268-.662.669-.793 1.187-.13.533-.17 1.156-.205 1.869v.003c-.02.334-.17.838-.319 1.35-1.5 1.072-3.58 1.538-5.348.334a2.645 2.645 0 00-.402-.533 1.45 1.45 0 00-.275-.333c.182 0 .338-.03.465-.067a.615.615 0 00.314-.334c.108-.267 0-.697-.345-1.163-.345-.467-.931-.995-1.788-1.521-.63-.4-.986-.87-1.15-1.396-.165-.534-.143-1.085-.015-1.645.245-1.07.873-2.11 1.274-2.763.107-.065.037.135-.408.974-.396.751-1.14 2.497-.122 3.854a8.123 8.123 0 01.647-2.876c.564-1.278 1.743-3.504 1.836-5.268.048.036.217.135.289.202.218.133.38.333.59.465.21.201.477.335.876.335.039.003.075.006.11.006.412 0 .73-.134.997-.268.29-.134.52-.334.74-.4h.005c.467-.135.835-.402 1.044-.7zm2.185 8.958c.037.6.343 1.245.882 1.377.588.134 1.434-.333 1.791-.765l.211-.01c.315-.007.577.01.847.268l.003.003c.208.199.305.53.391.876.085.4.154.78.409 1.066.486.527.645.906.636 1.14l.003-.007v.018l-.003-.012c-.015.262-.185.396-.498.595-.63.401-1.746.712-2.457 1.57-.618.737-1.37 1.14-2.036 1.191-.664.053-1.237-.2-1.574-.898l-.005-.003c-.21-.4-.12-1.025.056-1.69.176-.668.428-1.344.463-1.897.037-.714.076-1.335.195-1.814.12-.465.308-.797.641-.984l.045-.022zm-10.814.049h.01c.053 0 .105.005.157.014.376.055.706.333 1.023.752l.91 1.664.003.003c.243.533.754 1.064 1.189 1.637.434.598.77 1.131.729 1.57v.006c-.057.744-.48 1.148-1.125 1.294-.645.135-1.52.002-2.395-.464-.968-.536-2.118-.469-2.857-.602-.369-.066-.61-.2-.723-.4-.11-.2-.113-.602.123-1.23v-.004l.002-.003c.117-.334.03-.752-.027-1.118-.055-.401-.083-.71.043-.94.16-.334.396-.4.69-.533.294-.135.64-.202.915-.47h.002v-.002c.256-.268.445-.601.668-.838.19-.201.38-.336.663-.336zm7.159-9.074c-.435.201-.945.535-1.488.535-.542 0-.97-.267-1.28-.466-.154-.134-.28-.268-.373-.335-.164-.134-.144-.333-.074-.333.109.016.129.134.199.2.096.066.215.2.36.333.292.2.68.467 1.167.467.485 0 1.053-.267 1.398-.466.195-.135.445-.334.648-.467.156-.136.149-.267.279-.267.128.016.034.134-.147.332a8.097 8.097 0 01-.69.468zm-1.082-1.583V5.64c-.006-.02.013-.042.029-.05.074-.043.18-.027.26.004.063 0 .16.067.15.135-.006.049-.085.066-.135.066-.055 0-.092-.043-.141-.068-.052-.018-.146-.008-.163-.065zm-.551 0c-.02.058-.113.049-.166.066-.047.025-.086.068-.14.068-.05 0-.13-.02-.136-.068-.01-.066.088-.133.15-.133.08-.031.184-.047.259-.005.019.009.036.03.03.05v.02h.003z',
+  'Jira': 'M11.571 11.513H0a5.218 5.218 0 0 0 5.232 5.215h2.13v2.057A5.215 5.215 0 0 0 12.575 24V12.518a1.005 1.005 0 0 0-1.005-1.005zm5.723-5.756H5.736a5.215 5.215 0 0 0 5.215 5.214h2.129v2.058a5.218 5.218 0 0 0 5.215 5.214V6.758a1.001 1.001 0 0 0-1.001-1.001zM23.013 0H11.455a5.215 5.215 0 0 0 5.215 5.215h2.129v2.057A5.215 5.215 0 0 0 24 12.483V1.005A1.001 1.001 0 0 0 23.013 0Z',
+};
+
+function skillLogoSvg(d) {
+  const NS = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(NS, "svg");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("fill", "currentColor");
+  svg.setAttribute("aria-hidden", "true");
+  const p = document.createElementNS(NS, "path");
+  p.setAttribute("d", d);
+  svg.appendChild(p);
+  return svg;
+}
+
 const SKILL_ICON_PATHS = {
   draft:     '<path d="M12 3.4v3.2"/><circle cx="12" cy="7.6" r="1.5"/><path d="M10.8 8.9L6.6 20M13.2 8.9L17.4 20"/><path d="M8.8 15.4h6.4"/>',
   cube:      '<path d="M12 2.7l8.1 4.6v9.4L12 21.3 3.9 16.7V7.3z"/><path d="M12 12.1l8.1-4.8M12 12.1v9.2M12 12.1L3.9 7.3"/>',
@@ -1867,10 +1887,161 @@ const el = (tag, cls, text) => {
 };
 
 const builders = {
+  /* About Me as a car stereo head unit: LCD, wrapping photo strip, tuning
+     dial and six presets. The strip carries a clone of the last photo at the
+     start and of the first at the end, so it can wrap while both neighbours
+     still peek in; after sliding onto a clone it snaps silently to the real
+     tile. Arrow keys work only while this panel is open — openPanel stores
+     the listener's teardown and closePanel runs it. */
   about() {
-    const w = el('div');
-    w.appendChild(el('p', 'p-text', CONTENT.aboutMe));
-    return w;
+    const FREQS = [88.1, 91.5, 95.3, 99.7, 103.1, 106.9];
+    const N = FREQS.length;
+    const TILE = 240, GAP = 14, VIEW = 472, PX_PER_MHZ = 30;
+    const photos = Array.isArray(CONTENT.aboutPhotos) ? CONTENT.aboutPhotos : [];
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const NS = 'http://www.w3.org/2000/svg';
+    const chev = (dir) => {
+      const svg = document.createElementNS(NS, 'svg');
+      svg.setAttribute('viewBox', '0 0 24 24'); svg.setAttribute('fill', 'none');
+      svg.setAttribute('stroke', 'currentColor'); svg.setAttribute('stroke-width', '2');
+      svg.setAttribute('stroke-linecap', 'round'); svg.setAttribute('stroke-linejoin', 'round');
+      svg.setAttribute('aria-hidden', 'true');
+      const p = document.createElementNS(NS, 'path');
+      p.setAttribute('d', dir === 'left' ? 'M15 5l-7 7 7 7' : 'M9 5l7 7-7 7');
+      svg.appendChild(p); return svg;
+    };
+
+    const wrap = el('div', 'about-wrap');
+    const radio = el('div', 'radio');
+
+    // 1 — LCD
+    const lcd = el('div', 'radio-lcd');
+    const freqEl = el('div', 'lcd-freq');
+    const bars = el('span', 'lcd-bars');
+    for (let i = 0; i < 4; i++) bars.appendChild(el('i'));
+    const countEl = el('span', 'lcd-count');
+    const lcdRight = el('div', 'lcd-right');
+    lcdRight.append(el('span', 'lcd-st', 'ST'), bars, countEl);
+    lcd.append(freqEl, lcdRight);
+
+    // 2 — photo strip
+    const prevBtn = el('button', 'strip-btn'); prevBtn.type = 'button';
+    prevBtn.setAttribute('aria-label', 'Previous station'); prevBtn.appendChild(chev('left'));
+    const nextBtn = el('button', 'strip-btn'); nextBtn.type = 'button';
+    nextBtn.setAttribute('aria-label', 'Next station'); nextBtn.appendChild(chev('right'));
+    const view = el('div', 'strip-view');
+    const row = el('div', 'strip-row');
+    const order = [N - 1]; for (let i = 0; i < N; i++) order.push(i); order.push(0);
+    const tiles = order.map((real) => {
+      const t = el('div', 'strip-tile');
+      const src = photos[real];
+      if (src && !isPlaceholder(src)) {
+        const im = document.createElement('img');
+        im.src = src; im.alt = `Photo ${real + 1} of ${N}`; im.loading = 'lazy';
+        t.appendChild(im);
+      } else {
+        t.appendChild(el('div', 'strip-ph', `PHOTO ${String(real + 1).padStart(2, '0')}`));
+      }
+      row.appendChild(t); return t;
+    });
+    view.appendChild(row);
+    const strip = el('div', 'radio-strip');
+    strip.append(prevBtn, view, nextBtn);
+
+    // 3 — tuning dial (88–108 MHz across 600px)
+    const dial = el('div', 'radio-dial');
+    const ticks = el('div', 'dial-ticks');
+    for (let x = 0; x <= 600; x += 15) {
+      const t = el('i', x % 120 === 0 ? 'major' : 'minor');
+      t.style.left = (x / 600 * 100) + '%'; ticks.appendChild(t);
+    }
+    const needle = el('div', 'dial-needle');
+    ticks.appendChild(needle);
+    const labels = el('div', 'dial-labels');
+    for (let f = 88; f <= 108; f += 4) {
+      const sp = el('span', null, String(f));
+      sp.style.left = ((f - 88) * PX_PER_MHZ / 600 * 100) + '%'; labels.appendChild(sp);
+    }
+    dial.append(ticks, labels);
+
+    // 4 — presets
+    const presets = el('div', 'radio-presets');
+    const btns = [];
+    for (let i = 0; i < N; i++) {
+      const b = el('button', 'preset', String(i + 1));
+      b.type = 'button';
+      b.setAttribute('aria-label', `Preset ${i + 1}`);
+      b.addEventListener('click', () => go(i));
+      presets.appendChild(b); btns.push(b);
+    }
+
+    let cur = 0, domIndex = 1, animating = false;
+    // measured live: tile width and viewport both change at narrow widths
+    const tileW = () => tiles[0].getBoundingClientRect().width || TILE;
+    const viewW = () => view.clientWidth || VIEW;
+    const gapW = () => parseFloat(getComputedStyle(row).gap) || GAP;
+    const xFor = (d) => -(d * (tileW() + gapW())) + (viewW() - tileW()) / 2;
+
+    function paint() {
+      freqEl.textContent = `FM ${FREQS[cur].toFixed(1)}`;
+      countEl.textContent = `${String(cur + 1).padStart(2, '0')} / ${String(N).padStart(2, '0')}`;
+      needle.style.left = ((FREQS[cur] - 88) * PX_PER_MHZ / 600 * 100) + '%';
+      tiles.forEach((t, d) => t.classList.toggle('is-current', d === domIndex));
+      btns.forEach((b, i) => b.setAttribute('aria-pressed', String(i === cur)));
+    }
+    function place(d, animate) {
+      const live = animate && !reduce;
+      row.style.transition = live ? '' : 'none';
+      row.style.transform = `translateX(${xFor(d)}px)`;
+      if (!live) { void row.offsetWidth; row.style.transition = ''; }
+    }
+    function step(delta) {
+      if (animating) return;
+      cur = (cur + delta + N) % N;
+      if (reduce) { domIndex = cur + 1; place(domIndex, false); paint(); return; }
+      animating = true;
+      domIndex += delta;
+      place(domIndex, true);
+      paint();
+      const onEnd = () => {
+        row.removeEventListener('transitionend', onEnd);
+        animating = false;
+        if (domIndex === 0 || domIndex === N + 1) { domIndex = cur + 1; place(domIndex, false); }
+        paint();
+      };
+      row.addEventListener('transitionend', onEnd);
+    }
+    function go(i) {
+      if (animating || i === cur) return;
+      cur = i; domIndex = i + 1;
+      place(domIndex, true); paint();
+    }
+    prevBtn.addEventListener('click', () => step(-1));
+    nextBtn.addEventListener('click', () => step(1));
+
+    const onKey = (e) => {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+    };
+    document.addEventListener('keydown', onKey);
+    // the slide offset depends on measured widths, so recompute it on resize
+    const onResize = () => requestAnimationFrame(() => place(domIndex, false));
+    addEventListener('resize', onResize);
+    panelTeardown = () => {
+      document.removeEventListener('keydown', onKey);
+      removeEventListener('resize', onResize);
+    };
+
+    const text = el('div', 'about-text');
+    text.appendChild(el('h3', null, 'About Me'));
+    text.appendChild(el('p', null, CONTENT.aboutMe));
+
+    radio.append(lcd, strip, dial, presets);
+    wrap.append(radio, text);
+    place(domIndex, false); paint();
+    // widths read 0 until this is in the document, so re-centre once laid out
+    requestAnimationFrame(() => place(domIndex, false));
+    return wrap;
   },
   experience() {
     const w = el('div', 'timeline');
@@ -1887,7 +2058,9 @@ const builders = {
       }
       const body = el('div', 'entry-body');
       body.appendChild(el('h3', null, x.title));
-      body.appendChild(el('div', 'meta', `${x.org} — ${x.dates}`));
+      const meta = el('div', 'meta');
+      meta.append(x.org, ' · ', el('span', 'dt', x.dates));
+      body.appendChild(meta);
       const bullets = (x.bullets || []).filter((b) => !isPlaceholder(b));
       if (bullets.length) {
         const ul = el('ul', 'entry-bullets');
@@ -1929,11 +2102,14 @@ const builders = {
       card.appendChild(shots);
 
       const body = el('div', 'proj-body');
-      const head = el('div', 'proj-head');
-      head.appendChild(el('h3', 'proj-title', p.title));
-      head.appendChild(el('span', 'proj-date', p.date));
-      body.appendChild(head);
+      body.appendChild(el('h3', 'proj-title', p.title));
+      if (!isPlaceholder(p.date)) body.appendChild(el('div', 'proj-date', p.date));
       body.appendChild(el('p', 'proj-desc', p.description));
+      if (Array.isArray(p.tools) && p.tools.length) {
+        const tags = el('div', 'proj-tags');
+        for (const t of p.tools) tags.appendChild(el('span', 'proj-tag', t));
+        body.appendChild(tags);
+      }
 
       // real link when set, inert label while it's still a placeholder,
       // nothing at all when the project has no repo ("none")
@@ -1944,8 +2120,7 @@ const builders = {
           link.href = p.link; link.target = '_blank'; link.rel = 'noopener';
           link.setAttribute('aria-label', `${p.title} on GitHub`);
         }
-        link.appendChild(iconSvg(CONTACT_ICONS.GitHub));
-        link.appendChild(el('span', null, live ? 'View on GitHub' : 'GitHub link'));
+        link.appendChild(el('span', null, live ? 'GitHub ↗' : 'GitHub link'));
         body.appendChild(link);
       }
 
@@ -2005,9 +2180,14 @@ const builders = {
         chip.style.setProperty('--c-bg', `rgba(${rgb}, 0.13)`);
         chip.style.setProperty('--c-bg-hi', `rgba(${rgb}, 0.24)`);
         chip.style.setProperty('--c-bd', `rgba(${rgb}, 0.45)`);
-        const ico = el('span', 'skill-ico');
-        ico.appendChild(skillIconSvg(iconKey));
-        chip.append(ico, el('span', 'skill-name', name));
+        // real brand mark where one exists, otherwise the name alone
+        const logo = SKILL_LOGOS[name];
+        if (logo) {
+          const ico = el('span', 'skill-ico');
+          ico.appendChild(skillLogoSvg(logo));
+          chip.appendChild(ico);
+        }
+        chip.appendChild(el('span', 'skill-name', name));
         grid.appendChild(chip);
       }
       sec.appendChild(grid);
@@ -2039,6 +2219,7 @@ const builders = {
   },
 };
 
+let panelTeardown = null;   // set by panels that attach listeners (About radio)
 let panelPushed = false; // true when the open panel added a history entry
 
 function openPanel(sid, fromPop = false) {
@@ -2046,20 +2227,13 @@ function openPanel(sid, fromPop = false) {
   if (!s || panelOpen) return;
   panelOpen = true;
   lastFocused = document.activeElement;
-  panel.className = `size-${s.size}`;
-  panelEyebrow.textContent = `Assembly ref ${s.num} · ${s.part}`;
+  panel.className = `sec-${sid}`;
+  panelNum.textContent = s.num;
   panelTitleEl.textContent = s.title;
-  panelWm.textContent = s.num;
-  panelTitleblock.replaceChildren(
-    el('span', null, `Sheet ${s.num} / ${SECTION_TOTAL}`),
-    el('span', null, 'Rev A'),
-    el('span', null, 'Scale 1:1'),
-    (() => { const live = el('span', 'tb-live'); live.append(el('span', 'tb-dot'), document.createTextNode('Live')); return live; })(),
-  );
   panelBody.replaceChildren(builders[sid]());
   panelBody.scrollTop = 0;
   // stagger content entrance
-  panelBody.querySelectorAll('.entry, .proj-card, .skill-group, .spec-row, .p-text, .edu-plate')
+  panelBody.querySelectorAll('.entry, .proj-card, .skill-group, .spec-row, .p-text, .edu-plate, .about-wrap')
     .forEach((it, i) => { it.classList.add('anim-item'); it.style.setProperty('--i', i); });
   backdrop.classList.add('open');
   panel.classList.add('open');
@@ -2075,6 +2249,7 @@ function openPanel(sid, fromPop = false) {
 function closePanel(fromPop = false) {
   if (!panelOpen) return;
   if (!fromPop && panelPushed) { history.back(); return; } // popstate finishes the close
+  if (panelTeardown) { panelTeardown(); panelTeardown = null; }
   panelPushed = false;
   panelOpen = false;
   backdrop.classList.remove('open');
@@ -2146,7 +2321,10 @@ for (const [id, url] of [
 document.querySelector('meta[property="og:title"]').setAttribute('content', document.title);
 
 /* Hidden semantic mirror of CONTENT for screen readers and search engines.
-   Reuses the panel builders, so it always matches what the panels show. */
+   Reuses the panel builders so it always matches what the panels show —
+   except About, which is deliberately flattened to text: running its builder
+   here would clone the whole radio (duplicate buttons for screen readers, and
+   a stray document keydown listener registered at page load). */
 {
   const mirror = el('main', 'sr-only');
   mirror.appendChild(el('h1', null, CONTENT.name));
@@ -2154,7 +2332,7 @@ document.querySelector('meta[property="og:title"]').setAttribute('content', docu
   for (const sid of SECTION_ORDER) {
     const sec = document.createElement('section');
     sec.appendChild(el('h2', null, SECTIONS[sid].title));
-    sec.appendChild(builders[sid]());
+    sec.appendChild(sid === 'about' ? el('p', null, CONTENT.aboutMe) : builders[sid]());
     mirror.appendChild(sec);
   }
   document.body.appendChild(mirror);
