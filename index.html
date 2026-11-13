@@ -105,13 +105,13 @@ const CONTENT = {
     },
     {
       title: "Vision-Teleoperated UR5e Robot Arm",
-      date: "May 2026",
-      description: "A simulated UR5e I pilot with my own arm through a webcam. MediaPipe streams a wrist vector and pinch value to a ROS 2 node that retargets it and solves IK in PyBullet, with DH kinematics, damped least-squares IK and self-collision written from scratch. Recorded episodes train a bin-sorting policy.",
+      date: "Nov 2026",
+      description: "A simulated UR5e with a Robotiq 2F-85 gripper that I control with my hand through a webcam. MediaPipe tracks my arm and a ROS 2 node turns that into a target for the gripper — pinch to grab an object, carry it over the bin, and open your hand to drop it in. The arm and physics run in MuJoCo.",
       link: "https://github.com/j-rosario10/Robot-Arm-Simulation",
-      tools: ["MediaPipe", "ROS 2", "PyBullet", "IK"],
-      images: ["shots/p2-grasp.jpg", "shots/p2-tracking.jpg"],
-      alts: ["Simulated UR5e gripper placing a red object into a bin",
-             "Webcam view with MediaPipe shoulder, elbow and wrist tracking and a pinch readout"]
+      tools: ["MediaPipe", "ROS 2", "MuJoCo", "Python"],
+      images: ["shots/p2-simulator.webp", "shots/p2-handtracking.webp"],
+      alts: ["Simulated UR5e arm and Robotiq gripper above coloured blocks and a drop-off bin in MuJoCo",
+             "Webcam view with MediaPipe shoulder, elbow and wrist tracking drawn on my arm and a pinch reading"]
     },
     {
       title: "Quadcopter Drone Design & CFD",
