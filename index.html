@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Jude Rosario</title>
 <!-- Link-preview / search text. Edit this alongside CONTENT below. -->
-<meta name="description" content="Interactive 3D portfolio of a mechatronics engineering student — click the car to explode it into its components and explore experience, projects, skills, education, and contact." />
+<meta name="description" content="Interactive 3D portfolio of a mechatronics engineering student - click the car to explode it into its components and explore experience, projects, skills, education, and contact." />
 <meta property="og:title" content="Jude Rosario" />
 <meta property="og:description" content="An engineering portfolio built like an exploded-view technical illustration: a 3D sports coupe whose components open each section of the site." />
 <meta property="og:type" content="website" />
@@ -28,11 +28,11 @@
 <script>
 const CONTENT = {
   name: "Jude Rosario",
-  tagline: "PLACEHOLDER - e.g. Mechatronics Engineer — Cars, Systems, Simulation",
+  tagline: "PLACEHOLDER - e.g. Mechatronics Engineer - Cars, Systems, Simulation",
 
   /* The four elements that orbit the car like a dome, evenly spaced 90° apart.
      For the images: drop the files anywhere in this folder and point these at
-     them (any size or aspect ratio — the proportions are preserved). Until a
+     them (any size or aspect ratio - the proportions are preserved). Until a
      file exists, a labelled placeholder slot is shown in its place. */
   backdrop: {
     headline: "Jude Rosario",
@@ -56,34 +56,34 @@ const CONTENT = {
 
   aboutMe: "Hi, I'm Jude, a Mechatronics Engineering student at the University of Waterloo. I enjoy designing and simulating drones, robots and cars. Outside of school, I like to keep myself busy with learning how to cook, going to the gym, video games and racing fast cars!",
 
-  /* Newest first. `logo` is optional — leave it out and the entry just has no
+  /* Newest first. `logo` is optional - leave it out and the entry just has no
      icon. `bullets` is a list, so add as many lines per role as you like. */
   experience: [
     {
       title: "R&D Test Engineering Intern",
       org: "Musashi Auto Americas",
-      dates: "May – Sept 2026",
+      dates: "May - Sept 2026",
       logo: "logos/musashi.jpg",
       bullets: ["Link and suspension design"]
     },
     {
       title: "Chassis and Internal Structures Engineer",
       org: "Waterloo Formula Electric (FSAE)",
-      dates: "Apr 2025 – Present",
+      dates: "Apr 2025 - Present",
       logo: "logos/uwfe.jpg",
       bullets: ["Chassis design"]
     },
     {
       title: "Mechanical Engineering Intern",
       org: "Conifer Homewares",
-      dates: "Aug – Dec 2025",
+      dates: "Aug - Dec 2025",
       logo: "logos/conifer.jpg",
       bullets: ["3D printing and automation"]
     },
     {
       title: "Operations Engineering Intern",
       org: "Amrize",
-      dates: "Jan – Apr 2025",
+      dates: "Jan - Apr 2025",
       logo: "logos/amrize.jpg",
       bullets: ["Data operations analysis"]
     }
@@ -94,7 +94,7 @@ const CONTENT = {
      to "none" to hide the GitHub link on a card. */
   projects: [
     {
-      title: "BMW M2–Inspired ESP32 RC Car",
+      title: "BMW M2-Inspired ESP32 RC Car",
       date: "Dec 2025",
       description: "A 3D-printed BMW M2 chassis designed in SolidWorks and validated with FEA, driven by an ESP32 running dual-motor torque vectoring and regenerative braking. A Wi-Fi dashboard streams live telemetry, and an ultrasonic sensor overrides throttle to avoid collisions.",
       link: "https://github.com/j-rosario10/ESP32-RC-Car-Project",
@@ -135,7 +135,7 @@ const CONTENT = {
     }
   ],
 
-  /* `awards` and `courses` are lists — add or remove freely, they render as
+  /* `awards` and `courses` are lists - add or remove freely, they render as
      tags. `details` is optional free text shown underneath. */
   education: {
     school: "University of Waterloo",
@@ -525,14 +525,14 @@ a.spec-row:hover::after, a.spec-row:focus-visible::after { opacity: 1; }
   border: 1px solid var(--border); color: var(--text-2);
 }
 
-/* ---------- About Me — car stereo head unit ---------- */
+/* ---------- About Me - car stereo head unit ---------- */
 .about-wrap { display: grid; grid-template-columns: 640px 1fr; gap: 40px; align-items: start; }
 .about-wrap > * { min-width: 0; }   /* let the radio shrink instead of forcing the column wide */
 .radio {
   background: #121211; border: 1px solid var(--line); border-radius: 6px;
   padding: 20px; display: flex; flex-direction: column; gap: 16px;
 }
-/* 1 — LCD */
+/* 1 - LCD */
 .radio-lcd {
   height: 56px; background: #0A0B09; border: 1px solid #2A2926;
   display: flex; align-items: center; justify-content: space-between; padding: 0 16px;
@@ -548,7 +548,7 @@ a.spec-row:hover::after, a.spec-row:focus-visible::after { opacity: 1; }
 .lcd-bars i:nth-child(3) { height: 11px; }
 .lcd-bars i:nth-child(4) { height: 14px; }
 .lcd-count { font-size: 12px; color: var(--muted); }
-/* 2 — photo strip */
+/* 2 - photo strip */
 .radio-strip { display: flex; align-items: center; gap: 12px; }
 .strip-btn {
   flex: none; width: 48px; height: 48px; border-radius: 50%;
@@ -576,7 +576,7 @@ a.spec-row:hover::after, a.spec-row:focus-visible::after { opacity: 1; }
   font-family: var(--font-data); font-size: 12px; color: var(--muted);
   background: repeating-linear-gradient(135deg, #1A1A18 0 10px, #1E1E1B 10px 20px);
 }
-/* 3 — tuning dial */
+/* 3 - tuning dial */
 .radio-dial { width: 600px; max-width: 100%; position: relative; }
 .dial-ticks { position: relative; height: 34px; }
 .dial-ticks i { position: absolute; bottom: 0; width: 1px; background: var(--border); }
@@ -592,7 +592,7 @@ a.spec-row:hover::after, a.spec-row:focus-visible::after { opacity: 1; }
   position: absolute; top: 0; height: 34px; width: 2px; background: var(--accent);
   transition: left 0.45s cubic-bezier(.2,.8,.2,1);
 }
-/* 4 — presets */
+/* 4 - presets */
 .radio-presets { display: flex; gap: 8px; }
 .preset {
   flex: 1; height: 44px; border: 1px solid var(--border); background: transparent;
@@ -663,7 +663,7 @@ a.spec-row:hover::after, a.spec-row:focus-visible::after { opacity: 1; }
 
 <div id="stage" aria-hidden="true"></div>
 
-<div id="loader" role="status">Loading assembly — <span id="loader-pct">0</span>%</div>
+<div id="loader" role="status">Loading assembly - <span id="loader-pct">0</span>%</div>
 
 <nav id="ext-links" aria-label="External links">
   <a id="lnk-linkedin" target="_blank" rel="noopener" aria-label="LinkedIn profile" title="LinkedIn">
@@ -917,7 +917,7 @@ scene.add(glow);
 
 /* =====================================================================
    BACKDROP DOME
-   Four elements — name, portrait, title, crest — evenly spaced 90° apart on
+   Four elements - name, portrait, title, crest - evenly spaced 90° apart on
    a ring around the car and tilted inward, so they read like the curved wall
    of a showroom. They sit in world space, so orbiting and zooming the car
    sweeps past them exactly as if they were painted on the dome.
@@ -928,7 +928,7 @@ const DOME_Y = 3.2;              // height of the element centres
 const domeGroup = new THREE.Group();
 scene.add(domeGroup);
 
-/* Azimuth of the element that sits directly behind the car on first load —
+/* Azimuth of the element that sits directly behind the car on first load -
    derived from the intro camera direction so the name greets you head-on. */
 const DOME_BASE_AZ = Math.atan2(-5.2, -7.4);
 
@@ -1045,11 +1045,11 @@ function loadDomeImage(url, mesh, height, { feather = false } = {}) {
     mesh.geometry.dispose();
     mesh.geometry = new THREE.PlaneGeometry(height * (img.width / img.height), height);
     layoutDome();
-  }, undefined, () => { /* file not there yet — keep the placeholder slot */ });
+  }, undefined, () => { /* file not there yet - keep the placeholder slot */ });
 }
 
-/* Text planes are mostly transparent padding — only the middle ~35% of their
-   height is actual glyph — so they carry larger heights than the images. */
+/* Text planes are mostly transparent padding - only the middle ~35% of their
+   height is actual glyph - so they carry larger heights than the images. */
 const domeTextItems = [];
 function addDomeText({ text, opts, height, index, y }) {
   const t = makeTextTexture(text, opts);
@@ -1060,23 +1060,23 @@ function addDomeText({ text, opts, height, index, y }) {
 
 {
   const B = CONTENT.backdrop || {};
-  // 0 — name (behind the car on load)
+  // 0 - name (behind the car on load)
   addDomeText({
     text: (B.headline || CONTENT.name).toUpperCase(),
     opts: { size: 210, weight: 700, family: DOME_FONTS.display, track: 0.02 },
     height: 6.2, index: 0,
   });
-  // 1 — portrait, edges feathered so it blends into the dome
+  // 1 - portrait, edges feathered so it blends into the dome
   const photoH = 5.2;
   const photo = addDomeItem({ ...makeSlotTexture(['PORTRAIT', B.photoUrl || 'me.png']), height: photoH, index: 1, y: 2.85 });
   loadDomeImage(B.photoUrl, photo, photoH, { feather: true });
-  // 2 — title, in the signature green
+  // 2 - title, in the signature green
   addDomeText({
     text: (B.subhead || 'Mechatronics Engineer').toUpperCase(),
     opts: { size: 150, weight: 500, family: DOME_FONTS.technical, track: 0.16, color: '#8fdcb0' },
     height: 3.0, index: 2,
   });
-  // 3 — school crest (a wide wordmark ends up a wide banner; a square crest stays square)
+  // 3 - school crest (a wide wordmark ends up a wide banner; a square crest stays square)
   const logoH = 5.0;
   const logo = addDomeItem({ ...makeSlotTexture(['CREST', B.logoUrl || 'waterloo.png'], 780, 620), height: logoH, index: 3, y: 2.95 });
   loadDomeImage(B.logoUrl, logo, logoH);
@@ -1084,7 +1084,7 @@ function addDomeText({ text, opts, height, index, y }) {
 
 /* Canvas bakes whichever face was available at draw time, so re-render the
    text once the webfonts actually arrive. Drawing to a canvas does NOT trigger
-   a webfont download on its own — nothing in the DOM uses these faces — so we
+   a webfont download on its own - nothing in the DOM uses these faces - so we
    have to request them explicitly before waiting. */
 Promise.all([
   document.fonts?.load(`700 210px 'Space Grotesk'`),
@@ -1170,7 +1170,7 @@ function materialFor(groupName, srcName, meshName) {
 }
 
 /* =====================================================================
-   CAR ASSEMBLY — load model, split into explode groups
+   CAR ASSEMBLY - load model, split into explode groups
    ===================================================================== */
 const carRoot = new THREE.Group();
 scene.add(carRoot);
@@ -1192,7 +1192,7 @@ function classify(meshName) {
   return 'body';
 }
 
-/* Skip the model's large texture files — all materials get replaced anyway. */
+/* Skip the model's large texture files - all materials get replaced anyway. */
 const TINY_PNG = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==';
 const manager = new THREE.LoadingManager();
 manager.setURLModifier((url) => /\.(png|jpe?g|webp)(\?.*)?$/i.test(url) ? TINY_PNG : url);
@@ -1212,9 +1212,9 @@ function loadModel(url, onFail) {
   );
 }
 loadModel(MODEL_URL, (err) => {
-  console.warn('Compressed model failed to load — trying original source.', err);
+  console.warn('Compressed model failed to load - trying original source.', err);
   loadModel(FALLBACK_MODEL_URL, (err2) => {
-    console.warn('Model failed to load — using primitive fallback car.', err2);
+    console.warn('Model failed to load - using primitive fallback car.', err2);
     buildFallbackCar();
     finishSetup();
   });
@@ -1271,7 +1271,7 @@ function buildFallbackCar() {
   M(new THREE.TorusGeometry(0.19, 0.03, 10, 24), 'interior', 'dashboard', 0.42, 1.0, 0.2);
 }
 
-/* Procedural key fob (Contact) — meshes centered on group origin, scale pops in. */
+/* Procedural key fob (Contact) - meshes centered on group origin, scale pops in. */
 function buildKeyFob() {
   const g = groups.keyfob;
   const shell = new THREE.Mesh(
@@ -1427,7 +1427,7 @@ function buildLabels() {
     const b = document.createElement('button');
     b.className = 'part-label';
     b.hidden = true;
-    b.setAttribute('aria-label', `${s.title} — ${s.part} section`);
+    b.setAttribute('aria-label', `${s.title} - ${s.part} section`);
     b.innerHTML = `<span class="pl-part">${s.part}</span><span class="pl-section">${s.title}</span>`;
     b.addEventListener('click', () => openPanel(sid));
     b.addEventListener('mouseenter', () => setHover(sid));
@@ -1571,7 +1571,7 @@ function explode() {
   });
   // backdrop dome recedes so it doesn't cut across the floating parts
   addTween({ dur: 0.9, delay: 0.1, ease: easeInOutCubic, update: (e) => setDomeFade(1 - 0.88 * e) });
-  // lines are live from frame one — setGroupProgress() draws and fades each one
+  // lines are live from frame one - setGroupProgress() draws and fades each one
   // in step with its own part, including that part's stagger delay
   guideLines.forEach((l) => { l.visible = true; l.material.opacity = 0; });
   // camera pulls up + back
@@ -1590,7 +1590,7 @@ function explode() {
       btnAssemble.hidden = false;
       controls.autoRotate = !prefersReduced;
       controls.autoRotateSpeed = 0.3;
-      announcer.textContent = 'Assembly exploded. Six sections available — use Tab to move between parts, Enter to open.';
+      announcer.textContent = 'Assembly exploded. Six sections available - use Tab to move between parts, Enter to open.';
       if (!panelOpen && !hintPartsShown) {
         hintPartsShown = true;
         hintParts.classList.add('show');
@@ -1727,7 +1727,7 @@ const CONTACT_ICONS = {
 };
 /* ---------------------------------------------------------------------
    Skill icons. These are custom-drawn glyphs that represent each tool or
-   concept — not official brand logos — so they stay consistent with each
+   concept - not official brand logos - so they stay consistent with each
    other and need no network fetch. Colour carries the brand association.
    --------------------------------------------------------------------- */
 /* Brand logo silhouettes, single-path 24x24, inlined from Simple Icons (CC0).
@@ -1891,7 +1891,7 @@ const builders = {
      dial and six presets. The strip carries a clone of the last photo at the
      start and of the first at the end, so it can wrap while both neighbours
      still peek in; after sliding onto a clone it snaps silently to the real
-     tile. Arrow keys work only while this panel is open — openPanel stores
+     tile. Arrow keys work only while this panel is open - openPanel stores
      the listener's teardown and closePanel runs it. */
   about() {
     const FREQS = [88.1, 91.5, 95.3, 99.7, 103.1, 106.9];
@@ -1914,7 +1914,7 @@ const builders = {
     const wrap = el('div', 'about-wrap');
     const radio = el('div', 'radio');
 
-    // 1 — LCD
+    // 1 - LCD
     const lcd = el('div', 'radio-lcd');
     const freqEl = el('div', 'lcd-freq');
     const bars = el('span', 'lcd-bars');
@@ -1924,7 +1924,7 @@ const builders = {
     lcdRight.append(el('span', 'lcd-st', 'ST'), bars, countEl);
     lcd.append(freqEl, lcdRight);
 
-    // 2 — photo strip
+    // 2 - photo strip
     const prevBtn = el('button', 'strip-btn'); prevBtn.type = 'button';
     prevBtn.setAttribute('aria-label', 'Previous station'); prevBtn.appendChild(chev('left'));
     const nextBtn = el('button', 'strip-btn'); nextBtn.type = 'button';
@@ -1948,7 +1948,7 @@ const builders = {
     const strip = el('div', 'radio-strip');
     strip.append(prevBtn, view, nextBtn);
 
-    // 3 — tuning dial (88–108 MHz across 600px)
+    // 3 - tuning dial (88-108 MHz across 600px)
     const dial = el('div', 'radio-dial');
     const ticks = el('div', 'dial-ticks');
     for (let x = 0; x <= 600; x += 15) {
@@ -1964,7 +1964,7 @@ const builders = {
     }
     dial.append(ticks, labels);
 
-    // 4 — presets
+    // 4 - presets
     const presets = el('div', 'radio-presets');
     const btns = [];
     for (let i = 0; i < N; i++) {
@@ -2080,7 +2080,7 @@ const builders = {
     CONTENT.projects.forEach((p, i) => {
       const card = el('article', 'proj-card');
 
-      // two screenshots — real images when supplied, labelled frames until then
+      // two screenshots - real images when supplied, labelled frames until then
       const shots = el('div', 'proj-shots');
       const imgs = Array.isArray(p.images) ? p.images : [];
       for (let s = 0; s < 2; s++) {
@@ -2093,7 +2093,7 @@ const builders = {
         } else {
           const im = document.createElement('img');
           im.src = imgs[s];
-          im.alt = (p.alts && p.alts[s]) || `${p.title} — image ${s + 1}`;
+          im.alt = (p.alts && p.alts[s]) || `${p.title} - image ${s + 1}`;
           im.loading = 'lazy';
           shot.appendChild(im);
         }
@@ -2321,7 +2321,7 @@ for (const [id, url] of [
 document.querySelector('meta[property="og:title"]').setAttribute('content', document.title);
 
 /* Hidden semantic mirror of CONTENT for screen readers and search engines.
-   Reuses the panel builders so it always matches what the panels show —
+   Reuses the panel builders so it always matches what the panels show -
    except About, which is deliberately flattened to text: running its builder
    here would clone the whole radio (duplicate buttons for screen readers, and
    a stray document keydown listener registered at page load). */
